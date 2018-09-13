@@ -1,0 +1,325 @@
+@import url(http://fonts.googleapis.com/css?family=Roboto:400,100);
+
+html { overflow: -moz-scrollbars-vertical; overflow-y: scroll;  }
+body, html { font-size: 12px; font-family: sans-serif; padding: 0px; border: 0px; margin: 0px;  }  
+div.header { height: 60px; width: 100%;  }  
+div.logo { left: 900px; top: 10px; position: absolute; z-index: 10;}
+div.headertext { position: relative; margin: 0 auto; width: 1000px; font-size: 28px; padding-top: 15px; font-family: 'Roboto', sans-serif; }
+.nav { height: 50px; margin: 0 auto; width: 1000px;  }
+
+
+.navigation {
+	
+	height: 35px;
+	width: 100%;
+	background-color: #F7F7F7;
+	box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+}
+
+.nav ul {
+  list-style: none;
+  background-color: #F7F7F7;
+  text-align: center;
+  padding: 0;
+  margin: 0;
+  float: left;
+}
+
+.navbar {
+	
+	width: 1000px;
+	margin: 0 auto;
+}
+
+.nav li {
+  font-family: 'Roboto', sans-serif;
+  font-size: 15px;
+  line-height: 30px;
+  text-align: left;
+  text-shadow: 0 1px rgba(0,0,0,0.1); 
+  
+}
+
+.nav a {
+  text-decoration: none;
+  color: #000;
+  display: block;
+  padding-left: 15px;
+  border-bottom: 1px solid #888;
+  transition: .3s background-color;
+}
+
+.nav a:hover {
+  background-color: #4d90fe;
+  
+}
+
+.nav .active {
+  background-color: #aaa;
+  color: #444;
+  cursor: default;
+}
+
+/* Sub Menus */
+.nav li li {
+  font-size: .8em;
+}
+
+/*******************************************
+   Style menu for larger screens
+
+   Using 650px (130px each * 5 items), but ems
+   or other values could be used depending on other factors
+********************************************/
+
+@media screen and (min-width: 650px) {
+  .nav li {
+    width: 150px;
+    border-bottom: none;
+    height: 35px;
+    line-height: 35px;
+    font-size: 15px;
+    display: inline-block;
+    margin-right: -4px;
+  }
+
+  .nav a {
+    border-bottom: none;
+  }
+
+  .nav > ul > li {
+    text-align: center;
+  }
+
+  .nav > ul > li > a {
+    padding-left: 0;
+  }
+
+  /* Sub Menus */
+  .nav li ul {
+    position: absolute;
+    display: none;
+    width: inherit;
+  }
+
+  .nav li:hover ul {
+    display: block;
+	z-index: 10;
+  }
+
+  .nav li ul li {
+    display: block;
+	z-index: 10;
+  }
+}
+
+/* TABLE  */
+table.table { border-collapse: collapse; text-align: left; width: 100%; }
+table.table thead tr { vertical-align: middle; height: 30px; font-weight: normal; }
+table.table thead td { padding: 5px; background-color: #4d90fe; }
+table.table tbody tr { height: 30px; }
+table.table tbody td { padding: 5px; color: #3d3d3d;}
+table.table tbody tr:hover {background-color: #d9d9d9;}
+
+
+table.table tr:nth-child(even) { background: #F7F7F7;}
+table.table tr:nth-child(odd) { background: #FFF; }
+
+td.refTable { vertical-align: text-top;}
+
+div.title { margin: 0 auto; font: 26px arial; text-align: center; width: 100%; }
+div.content { width: 1000px; margin: 0 auto; text-align: left; margin-top: 25px; }
+div.error { color: red; margin-bottom: 20px; border: 1px solid red; padding: 5px; }
+div.pass {  color: green; margin-bottom: 20px; border: 1px solid green; padding: 5px; }
+
+
+
+table.files { border-collapse: collapse; width: 800px; margin: 0 auto; text-align: left;}
+table.files thead tr { vertical-align: middle; height: 25px;}
+table.files thead td { font-weight: bold;  }
+table.files tbody tr { height: 25px; }
+table.files td { text-align: left; }
+
+
+
+table.monitor tr { vertical-align: top; }
+
+.evenrow { background-color: #FFF; }
+.oddrow { background-color: #e8e8e8; }
+
+
+.logfile { width: 100%; background-color: #F7F7F7; border: 1px solid #ccc; padding: 5px; font-size: 11px; }
+.logfile pre { margin: 0px; }
+
+
+a, a:visited, a:active { color: #000; text-decoration: none; }
+a:hover {  }
+
+
+
+textarea { 
+  font-size: 12px;
+  -webkit-appearance: none;
+  background: #fff;
+  border: 1px solid #d9d9d9;
+  border-top: 1px solid #c0c0c0;
+  /* border-radius: 2px; */
+  padding: 2px;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+}
+
+select {
+  height: 20px;
+  font-size: 12px;
+  background: #F7F7F7;
+  border: 1px solid #d9d9d9;
+  border-top: 1px solid #c0c0c0;
+  /* border-radius: 2px; */
+  padding: 0 3px;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+}
+
+input[type=submit] {
+
+
+  /*margin-bottom: 10px;*/
+  position: relative;
+  padding: 5px;
+  border: 0px;
+  color: #fff;
+  text-shadow: 0 1px rgba(0,0,0,0.1); 
+  background-color: #4d90fe;
+  font-weight: 700;
+}
+
+input[type=submit]:hover {
+  /* border: 1px solid #2f5bb7; */
+  border: 0px;
+  text-shadow: 0 1px rgba(0,0,0,0.3);
+  background-color: #357ae8;
+
+}
+
+input[type=text], input[type=password] {
+  height: 20px;
+  font-size: 12px;
+  -webkit-appearance: none;
+  background: #fff;
+  border: 1px solid #d9d9d9;
+  border-top: 1px solid #c0c0c0;
+  /* border-radius: 2px; */
+  padding: 0 3px;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+}
+
+input[type=text]:hover, input[type=password]:hover {
+  border: 1px solid #b9b9b9;
+  border-top: 1px solid #a0a0a0;
+  -moz-box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
+  -webkit-box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
+  box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
+}
+
+
+.button {
+
+
+  /*margin-bottom: 10px;*/
+  position: relative;
+  padding: 5px;
+  border: 0px;
+  color: #fff;
+  text-shadow: 0 1px rgba(0,0,0,0.1); 
+  background-color: #4d90fe;
+  font-weight: 700;
+}
+
+
+
+
+h1 { 
+	
+	font-size: 20x; 
+
+}
+
+h3 {
+	font-size: 15px;
+	font-weight: normal;
+	font-family: 'Roboto', sans-serif;
+}
+
+
+.hidden {
+    display: none;
+    overflow: hidden;
+}
+.unhidden {
+    display: block;
+}
+
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black;
+}
+
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 200px;
+    background-color: grey;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px;
+
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+}
+
+
+
+
+
+
+/* ONSUBMIT LOADING */
+
+/* Start by setting display:none to make this hidden.
+   Then we position it in relation to the viewport window
+   with position:fixed. Width, height, top and left speak
+   for themselves. Background we set to 80% white with
+   our animation centered, and no-repeating */
+.modal {
+    display:    none;
+    position:   fixed;
+    z-index:    1000;
+    top:        0;
+    left:       0;
+    height:     100%;
+    width:      100%;
+    background: rgba( 255, 255, 255, .8 ) 
+                url('http://i.stack.imgur.com/FhHRx.gif') 
+                50% 50% 
+                no-repeat;
+}
+
+/* When the body has the loading class, we turn
+   the scrollbar off with overflow:hidden */
+body.loading {
+    overflow: hidden;   
+}
+
+/* Anytime the body has the loading class, our
+   modal element will be visible */
+body.loading .modal {
+    display: block;
+}

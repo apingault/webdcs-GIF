@@ -1,0 +1,336 @@
+2016-10-12.06:07:05.[HVscan][518] Start HVScan DAQ
+2016-10-12.06:07:05.[HVscan][0] Initialize HVSCAN 1862
+2016-10-12.06:07:05.[HVscan][0] Scanning point HV1
+2016-10-12.06:07:05.                                                    
+2016-10-12.06:07:05.                                                    
+2016-10-12.06:07:05.                                                    
+2016-10-12.06:07:05.           *****       *****   *****                
+2016-10-12.06:07:05.        ***********    *****   *****                
+2016-10-12.06:07:05.      **************   *****   *****                
+2016-10-12.06:07:05.     ******     *****  *****   *******              
+2016-10-12.06:07:05.    ******    ******   *****   *******              
+2016-10-12.06:07:05.    ******   ******    *****   *****                
+2016-10-12.06:07:05.     ******            *****   *****   *            
+2016-10-12.06:07:05.      ******  *****    *****    ***** ***           
+2016-10-12.06:07:05.        **********     *****     *********          
+2016-10-12.06:07:05.            ***                    ****             
+2016-10-12.06:07:05.                                         **     **  
+2016-10-12.06:07:05.                                       ****** ******
+2016-10-12.06:07:05.                                         **     **  
+2016-10-12.06:07:05.                                                    
+2016-10-12.06:07:05.                                                    
+2016-10-12.06:07:05.****************************************************
+2016-10-12.06:07:05.******    DAQ Program 02/05/16 Version 3.0    ******
+2016-10-12.06:07:05.****************************************************
+2016-10-12.06:07:05.[DAQ] Initialisation of the TDCs. Please wait, this may take a few minutes...
+2016-10-12.06:07:06.[HVscan][0] Set voltages, ramping...
+2016-10-12.06:07:08.[HVscan][0] Ramping completed, wait for waiting time...
+2016-10-12.06:07:12.[TDC0] Status - A00-15 : 65535
+2016-10-12.06:07:13.[TDC0] Status - A16-31 : 65535
+2016-10-12.06:07:16.[TDC0] Status - B00-15 : 65535
+2016-10-12.06:07:18.[TDC0] Status - B16-31 : 65535
+2016-10-12.06:07:20.[TDC0] Status - C00-15 : 65535
+2016-10-12.06:07:21.[v1190-ERROR] Write opcode - timeout error - SetTDCTestMode - Step 2
+2016-10-12.06:07:22.[TDC0] Status - C16-31 : 65535
+2016-10-12.06:07:23.[TDC0] Status - D00-15 : 65535
+2016-10-12.06:07:24.[TDC0] Status - D16-31 : 65535
+2016-10-12.06:07:35.[TDC1] Status - A00-15 : 65535
+2016-10-12.06:07:36.[TDC1] Status - A16-31 : 65535
+2016-10-12.06:07:37.[TDC1] Status - B00-15 : 65535
+2016-10-12.06:07:38.[TDC1] Status - B16-31 : 65535
+2016-10-12.06:07:39.[TDC1] Status - C00-15 : 65535
+2016-10-12.06:07:40.[TDC1] Status - C16-31 : 65535
+2016-10-12.06:07:41.[TDC1] Status - D00-15 : 65535
+2016-10-12.06:07:42.[TDC1] Status - D16-31 : 65535
+2016-10-12.06:07:53.[TDC2] Status - A00-15 : 65535
+2016-10-12.06:07:54.[TDC2] Status - A16-31 : 65535
+2016-10-12.06:07:55.[TDC2] Status - B00-15 : 65535
+2016-10-12.06:07:56.[TDC2] Status - B16-31 : 65535
+2016-10-12.06:07:57.[TDC2] Status - C00-15 : 65535
+2016-10-12.06:07:58.[TDC2] Status - C16-31 : 65535
+2016-10-12.06:07:59.[TDC2] Status - D00-15 : 65535
+2016-10-12.06:08:00.[TDC2] Status - D16-31 : 65535
+2016-10-12.06:08:00.[DAQ] Initialisation done
+2016-10-12.06:08:02.[DAQ] Run about to start...
+2016-10-12.06:08:03.[DAQ] Run /var/operation/HVSCAN/001862/Scan001862_HV1_DAQ.root started
+2016-10-12.06:08:03.[DAQ] Run /var/operation/HVSCAN/001862/Scan001862_HV1_DAQ.root 0%
+2016-10-12.06:09:08.[HVscan][0] Waiting time ended
+2016-10-12.06:09:08.[HVscan][0] Wait until DAQ is ready for data taking
+2016-10-12.06.54.56.[WEBDCS] HVscan killed by user. Reason: DAQ PROBLEM
+2016-10-12.06.54.56.[WEBDCS] Lower voltage on detectors
+2016-10-12.06:54:56.[HVscan][518] Start HVScan DAQ
+2016-10-12.06:54:56.[HVscan][0] Initialize HVSCAN 1862
+2016-10-12.06:54:56.[HVscan][0] Scanning point HV1
+2016-10-12.06:54:56.                                                    
+2016-10-12.06:54:56.                                                    
+2016-10-12.06:54:56.                                                    
+2016-10-12.06:54:56.           *****       *****   *****                
+2016-10-12.06:54:56.        ***********    *****   *****                
+2016-10-12.06:54:56.      **************   *****   *****                
+2016-10-12.06:54:56.     ******     *****  *****   *******              
+2016-10-12.06:54:56.    ******    ******   *****   *******              
+2016-10-12.06:54:56.    ******   ******    *****   *****                
+2016-10-12.06:54:56.     ******            *****   *****   *            
+2016-10-12.06:54:56.      ******  *****    *****    ***** ***           
+2016-10-12.06:54:56.        **********     *****     *********          
+2016-10-12.06:54:56.            ***                    ****             
+2016-10-12.06:54:56.                                         **     **  
+2016-10-12.06:54:56.                                       ****** ******
+2016-10-12.06:54:56.                                         **     **  
+2016-10-12.06:54:56.                                                    
+2016-10-12.06:54:56.                                                    
+2016-10-12.06:54:56.****************************************************
+2016-10-12.06:54:56.******    DAQ Program 02/05/16 Version 3.0    ******
+2016-10-12.06:54:56.****************************************************
+2016-10-12.06:54:56.[DAQ] Initialisation of the TDCs. Please wait, this may take a few minutes...
+2016-10-12.06:54:56.[HVscan][0] Set voltages, ramping...
+2016-10-12.06:54:58.[HVscan][0] Ramping completed, wait for waiting time...
+2016-10-12.06:55:42.[TDC0] Match Window Width : 10000
+2016-10-12.06:55:42.[TDC0] Window Offset : 10025
+2016-10-12.06:55:42.[TDC0] Extra Search Window Width : 0
+2016-10-12.06:55:42.[TDC0] Reject Margin : 0
+2016-10-12.06:55:42.[TDC0] Trigger Time Subtraction : 25
+2016-10-12.06:55:48.[TDC1] Match Window Width : 10000
+2016-10-12.06:55:48.[TDC1] Window Offset : 10025
+2016-10-12.06:55:48.[TDC1] Extra Search Window Width : 0
+2016-10-12.06:55:48.[TDC1] Reject Margin : 0
+2016-10-12.06:55:48.[TDC1] Trigger Time Subtraction : 25
+2016-10-12.06:55:54.[TDC2] Match Window Width : 10000
+2016-10-12.06:55:54.[TDC2] Window Offset : 10025
+2016-10-12.06:55:54.[TDC2] Extra Search Window Width : 0
+2016-10-12.06:55:54.[TDC2] Reject Margin : 0
+2016-10-12.06:55:54.[TDC2] Trigger Time Subtraction : 25
+2016-10-12.06:55:59.[TDC0] Edge readout : 1
+2016-10-12.06:56:03.[TDC1] Edge readout : 1
+2016-10-12.06:56:08.[TDC2] Edge readout : 1
+2016-10-12.06:56:13.[TDC0] Resolution : 2
+2016-10-12.06:56:17.[TDC1] Resolution : 2
+2016-10-12.06:56:22.[TDC2] Resolution : 2
+2016-10-12.06:56:27.[TDC0] Channel dead time : 0
+2016-10-12.06:56:31.[TDC1] Channel dead time : 0
+2016-10-12.06:56:36.[TDC2] Channel dead time : 0
+2016-10-12.06:56:58.[HVscan][0] Waiting time ended
+2016-10-12.06:56:58.[HVscan][0] Wait until DAQ is ready for data taking
+2016-10-12.06:58:03.[HVscan][0] Received status READY from DAQ, start data taking
+2016-10-12.06:58:06.[HVscan][0] Reset CAEN connection and start monitoring CAEN parameters
+2016-10-12.07:01:23.[HVscan][0] Run DQM on rate/currents
+2016-10-12.07:01:23.[HVscan][0] Received status READY from DAQ, start data taking
+2016-10-12.07:01:24.[HVscan][0] Run DQM on DIP
+2016-10-12.07:01:25.[HVscan][0] Scanning point HV2
+2016-10-12.07:01:25.[HVscan][0] Set voltages, ramping...
+2016-10-12.07:01:26.[HVscan][0] Reset CAEN connection and start monitoring CAEN parameters
+2016-10-12.07:01:35.[HVscan][0] Ramping completed, wait for waiting time...
+2016-10-12.07:03:35.[HVscan][0] Waiting time ended
+2016-10-12.07:03:35.[HVscan][0] Wait until DAQ is ready for data taking
+2016-10-12.07:04:43.[HVscan][0] Run DQM on rate/currents
+2016-10-12.07:04:43.[HVscan][0] Run DQM on DIP
+2016-10-12.07:04:44.[HVscan][0] Scanning point HV2
+2016-10-12.07:04:44.[HVscan][0] Set voltages, ramping...
+2016-10-12.07:04:45.[HVscan][0] Received status READY from DAQ, start data taking
+2016-10-12.07:04:48.[HVscan][0] Reset CAEN connection and start monitoring CAEN parameters
+2016-10-12.07:04:48.[HVscan][0] Ramping completed, wait for waiting time...
+2016-10-12.07:06:48.[HVscan][0] Waiting time ended
+2016-10-12.07:06:48.[HVscan][0] Wait until DAQ is ready for data taking
+2016-10-12.07:08:04.[HVscan][0] Run DQM on rate/currents
+2016-10-12.07:08:04.[HVscan][0] Run DQM on DIP
+2016-10-12.07:08:06.[HVscan][0] Scanning point HV3
+2016-10-12.07:08:06.[HVscan][0] Set voltages, ramping...
+2016-10-12.07:08:26.[HVscan][0] Ramping completed, wait for waiting time...
+2016-10-12.07:10:26.[HVscan][0] Waiting time ended
+2016-10-12.07:10:26.[HVscan][0] Wait until DAQ is ready for data taking
+2016-10-12.07:11:23.[HVscan][0] Received status READY from DAQ, start data taking
+2016-10-12.07:11:26.[HVscan][0] Reset CAEN connection and start monitoring CAEN parameters
+2016-10-12.07:14:43.[HVscan][0] Run DQM on rate/currents
+2016-10-12.07:14:43.[HVscan][0] Run DQM on DIP
+2016-10-12.07:14:44.[HVscan][0] Scanning point HV3
+2016-10-12.07:14:44.[HVscan][0] Set voltages, ramping...
+2016-10-12.07:14:56.[HVscan][0] Ramping completed, wait for waiting time...
+2016-10-12.07:16:56.[HVscan][0] Waiting time ended
+2016-10-12.07:16:56.[HVscan][0] Wait until DAQ is ready for data taking
+2016-10-12.07:18:06.[HVscan][0] Received status READY from DAQ, start data taking
+2016-10-12.07:18:09.[HVscan][0] Reset CAEN connection and start monitoring CAEN parameters
+2016-10-12.07:21:24.[HVscan][0] Run DQM on rate/currents
+2016-10-12.07:21:24.[HVscan][0] Run DQM on DIP
+2016-10-12.07:21:26.[HVscan][0] Scanning point HV4
+2016-10-12.07:21:26.[HVscan][0] Set voltages, ramping...
+2016-10-12.07:21:26.[HVscan][0] Received status READY from DAQ, start data taking
+2016-10-12.07:21:29.[HVscan][0] Reset CAEN connection and start monitoring CAEN parameters
+2016-10-12.07:21:30.[HVscan][0] Ramping completed, wait for waiting time...
+2016-10-12.07:23:30.[HVscan][0] Waiting time ended
+2016-10-12.07:23:30.[HVscan][0] Wait until DAQ is ready for data taking
+2016-10-12.07:24:46.[HVscan][0] Run DQM on rate/currents
+2016-10-12.07:24:46.[HVscan][0] Run DQM on DIP
+2016-10-12.07:24:47.[HVscan][0] Scanning point HV4
+2016-10-12.07:24:47.[HVscan][0] Set voltages, ramping...
+2016-10-12.07:24:51.[HVscan][0] Ramping completed, wait for waiting time...
+2016-10-12.07:26:51.[HVscan][0] Waiting time ended
+2016-10-12.07:26:51.[HVscan][0] Wait until DAQ is ready for data taking
+2016-10-12.07:28:10.[HVscan][0] Received status READY from DAQ, start data taking
+2016-10-12.07:28:13.[HVscan][0] Reset CAEN connection and start monitoring CAEN parameters
+2016-10-12.07:31:27.[HVscan][0] Run DQM on rate/currents
+2016-10-12.07:31:27.[HVscan][0] Run DQM on DIP
+2016-10-12.07:31:28.[HVscan][0] Scanning point HV5
+2016-10-12.07:31:28.[HVscan][0] Set voltages, ramping...
+2016-10-12.07:31:40.[HVscan][0] Ramping completed, wait for waiting time...
+2016-10-12.07:33:40.[HVscan][0] Waiting time ended
+2016-10-12.07:33:40.[HVscan][0] Wait until DAQ is ready for data taking
+2016-10-12.07:34:50.[HVscan][0] Received status READY from DAQ, start data taking
+2016-10-12.07:34:53.[HVscan][0] Reset CAEN connection and start monitoring CAEN parameters
+2016-10-12.07:38:09.[HVscan][0] Run DQM on rate/currents
+2016-10-12.07:38:09.[HVscan][0] Run DQM on DIP
+2016-10-12.07:38:10.[HVscan][0] Scanning point HV6
+2016-10-12.07:38:10.[HVscan][0] Set voltages, ramping...
+2016-10-12.07:38:11.[HVscan][0] Received status READY from DAQ, start data taking
+2016-10-12.07:38:14.[HVscan][0] Reset CAEN connection and start monitoring CAEN parameters
+2016-10-12.07:38:14.[HVscan][0] Ramping completed, wait for waiting time...
+2016-10-12.07:40:14.[HVscan][0] Waiting time ended
+2016-10-12.07:40:14.[HVscan][0] Wait until DAQ is ready for data taking
+2016-10-12.07:41:31.[HVscan][0] Run DQM on rate/currents
+2016-10-12.07:41:31.[HVscan][0] Run DQM on DIP
+2016-10-12.07:41:32.[HVscan][0] Scanning point HV5
+2016-10-12.07:41:32.[HVscan][0] Set voltages, ramping...
+2016-10-12.07:41:36.[HVscan][0] Ramping completed, wait for waiting time...
+2016-10-12.07:43:36.[HVscan][0] Waiting time ended
+2016-10-12.07:43:36.[HVscan][0] Wait until DAQ is ready for data taking
+2016-10-12.07:44:54.[HVscan][0] Received status READY from DAQ, start data taking
+2016-10-12.07:44:57.[HVscan][0] Reset CAEN connection and start monitoring CAEN parameters
+2016-10-12.07:48:15.[HVscan][0] Run DQM on rate/currents
+2016-10-12.07:48:15.[HVscan][0] Run DQM on DIP
+2016-10-12.07:48:16.[HVscan][0] Received status READY from DAQ, start data taking
+2016-10-12.07:48:16.[HVscan][0] Scanning point HV7
+2016-10-12.07:48:16.[HVscan][0] Set voltages, ramping...
+2016-10-12.07:48:19.[HVscan][0] Reset CAEN connection and start monitoring CAEN parameters
+2016-10-12.07:48:36.[HVscan][0] Ramping completed, wait for waiting time...
+2016-10-12.07:50:36.[HVscan][0] Waiting time ended
+2016-10-12.07:50:36.[HVscan][0] Wait until DAQ is ready for data taking
+2016-10-12.07:51:35.[HVscan][0] Run DQM on rate/currents
+2016-10-12.07:51:35.[HVscan][0] Run DQM on DIP
+2016-10-12.07:51:36.[HVscan][0] Scanning point HV6
+2016-10-12.07:51:36.[HVscan][0] Set voltages, ramping...
+2016-10-12.07:51:36.[HVscan][0] Received status READY from DAQ, start data taking
+2016-10-12.07:51:39.[HVscan][0] Reset CAEN connection and start monitoring CAEN parameters
+2016-10-12.07:51:42.[HVscan][0] Ramping completed, wait for waiting time...
+2016-10-12.07:53:42.[HVscan][0] Waiting time ended
+2016-10-12.07:53:42.[HVscan][0] Wait until DAQ is ready for data taking
+2016-10-12.07:55:01.[HVscan][0] Run DQM on rate/currents
+2016-10-12.07:55:01.[HVscan][0] Run DQM on DIP
+2016-10-12.07:55:02.[HVscan][0] Received status READY from DAQ, start data taking
+2016-10-12.07:55:02.[HVscan][0] Scanning point HV8
+2016-10-12.07:55:02.[HVscan][0] Set voltages, ramping...
+2016-10-12.07:55:05.[HVscan][0] Reset CAEN connection and start monitoring CAEN parameters
+2016-10-12.07:55:22.[HVscan][0] Ramping completed, wait for waiting time...
+2016-10-12.07:57:22.[HVscan][0] Waiting time ended
+2016-10-12.07:57:22.[HVscan][0] Wait until DAQ is ready for data taking
+2016-10-12.07:58:25.[HVscan][0] Run DQM on rate/currents
+2016-10-12.07:58:25.[HVscan][0] Run DQM on DIP
+2016-10-12.07:58:26.[HVscan][0] Scanning point HV7
+2016-10-12.07:58:26.[HVscan][0] Set voltages, ramping...
+2016-10-12.07:58:27.[HVscan][0] Received status READY from DAQ, start data taking
+2016-10-12.07:58:30.[HVscan][0] Ramping completed, wait for waiting time...
+2016-10-12.07:58:30.[HVscan][0] Reset CAEN connection and start monitoring CAEN parameters
+2016-10-12.08:00:30.[HVscan][0] Waiting time ended
+2016-10-12.08:00:30.[HVscan][0] Wait until DAQ is ready for data taking
+2016-10-12.08:01:51.[HVscan][0] Run DQM on rate/currents
+2016-10-12.08:01:51.[HVscan][0] Run DQM on DIP
+2016-10-12.08:01:52.[HVscan][0] Scanning point HV9
+2016-10-12.08:01:52.[HVscan][0] Set voltages, ramping...
+2016-10-12.08:02:20.[HVscan][0] Ramping completed, wait for waiting time...
+2016-10-12.08:04:20.[HVscan][0] Waiting time ended
+2016-10-12.08:04:20.[HVscan][0] Wait until DAQ is ready for data taking
+2016-10-12.08:05:15.[HVscan][0] Received status READY from DAQ, start data taking
+2016-10-12.08:05:18.[HVscan][0] Reset CAEN connection and start monitoring CAEN parameters
+2016-10-12.08:08:40.[HVscan][0] Run DQM on rate/currents
+2016-10-12.08:08:40.[HVscan][0] Run DQM on DIP
+2016-10-12.08:08:41.[HVscan][0] Scanning point HV10
+2016-10-12.08:08:41.[HVscan][0] Set voltages, ramping...
+2016-10-12.08:09:05.[HVscan][0] Ramping completed, wait for waiting time...
+2016-10-12.08:11:05.[HVscan][0] Waiting time ended
+2016-10-12.08:11:05.[HVscan][0] Wait until DAQ is ready for data taking
+2016-10-12.08:12:05.[HVscan][0] Received status READY from DAQ, start data taking
+2016-10-12.08:12:08.[HVscan][0] Reset CAEN connection and start monitoring CAEN parameters
+2016-10-12.08:15:28.[HVscan][0] Run DQM on rate/currents
+2016-10-12.08:15:28.[HVscan][0] Run DQM on DIP
+2016-10-12.08:15:29.[HVscan][0] Scanning point HV8
+2016-10-12.08:15:29.[HVscan][0] Set voltages, ramping...
+2016-10-12.08:15:33.[HVscan][0] Ramping completed, wait for waiting time...
+2016-10-12.08:17:33.[HVscan][0] Waiting time ended
+2016-10-12.08:17:33.[HVscan][0] Wait until DAQ is ready for data taking
+2016-10-12.08:18:53.[HVscan][0] Received status READY from DAQ, start data taking
+2016-10-12.08:18:56.[HVscan][0] Reset CAEN connection and start monitoring CAEN parameters
+2016-10-12.08:22:17.[HVscan][0] Run DQM on rate/currents
+2016-10-12.08:22:18.[HVscan][0] Run DQM on DIP
+2016-10-12.08:22:19.[HVscan][0] Scanning point HV9
+2016-10-12.08:22:19.[HVscan][0] Set voltages, ramping...
+2016-10-12.08:22:20.[HVscan][0] Received status READY from DAQ, start data taking
+2016-10-12.08:22:23.[HVscan][0] Ramping completed, wait for waiting time...
+2016-10-12.08:22:23.[HVscan][0] Reset CAEN connection and start monitoring CAEN parameters
+2016-10-12.08:24:23.[HVscan][0] Waiting time ended
+2016-10-12.08:24:23.[HVscan][0] Wait until DAQ is ready for data taking
+2016-10-12.08:25:44.[HVscan][0] Run DQM on rate/currents
+2016-10-12.08:25:44.[HVscan][0] Run DQM on DIP
+2016-10-12.08:25:45.[HVscan][0] Scanning point HV11
+2016-10-12.08:25:45.[HVscan][0] Set voltages, ramping...
+2016-10-12.08:25:49.[HVscan][0] Ramping completed, wait for waiting time...
+2016-10-12.08:27:49.[HVscan][0] Waiting time ended
+2016-10-12.08:27:49.[HVscan][0] Wait until DAQ is ready for data taking
+2016-10-12.08:29:09.[HVscan][0] Received status READY from DAQ, start data taking
+2016-10-12.08:29:12.[HVscan][0] Reset CAEN connection and start monitoring CAEN parameters
+2016-10-12.08:30:12.[HVscan][0] Run DQM on rate/currents
+2016-10-12.08:30:12.[HVscan][0] Run DQM on DIP
+2016-10-12.08:30:14.[HVscan][0] Scanning point HV12
+2016-10-12.08:30:14.[HVscan][0] Set voltages, ramping...
+2016-10-12.08:30:18.[HVscan][0] Ramping completed, wait for waiting time...
+2016-10-12.08:32:18.[HVscan][0] Waiting time ended
+2016-10-12.08:32:18.[HVscan][0] Wait until DAQ is ready for data taking
+2016-10-12.08:40:48.[HVscan][0] Received status READY from DAQ, start data taking
+2016-10-12.08:40:51.[HVscan][0] Reset CAEN connection and start monitoring CAEN parameters
+2016-10-12.08:46:03.[HVscan][0] Run DQM on rate/currents
+2016-10-12.08:46:03.[HVscan][0] Run DQM on DIP
+2016-10-12.08:46:04.[HVscan][0] Scanning point HV13
+2016-10-12.08:46:04.[HVscan][0] Set voltages, ramping...
+2016-10-12.08:46:24.[HVscan][0] Ramping completed, wait for waiting time...
+2016-10-12.08:48:24.[HVscan][0] Waiting time ended
+2016-10-12.08:48:24.[HVscan][0] Wait until DAQ is ready for data taking
+2016-10-12.08:51:14.[HVscan][0] Received status READY from DAQ, start data taking
+2016-10-12.08:51:17.[HVscan][0] Reset CAEN connection and start monitoring CAEN parameters
+2016-10-12.08:56:07.[HVscan][0] Run DQM on rate/currents
+2016-10-12.08:56:07.[HVscan][0] Run DQM on DIP
+2016-10-12.08:56:08.[HVscan][0] Scanning point HV14
+2016-10-12.08:56:08.[HVscan][0] Set voltages, ramping...
+2016-10-12.08:56:12.[HVscan][0] Ramping completed, wait for waiting time...
+2016-10-12.08:58:12.[HVscan][0] Waiting time ended
+2016-10-12.08:58:12.[HVscan][0] Wait until DAQ is ready for data taking
+2016-10-12.09:04:47.[HVscan][0] Received status READY from DAQ, start data taking
+2016-10-12.09:04:50.[HVscan][0] Reset CAEN connection and start monitoring CAEN parameters
+2016-10-12.09:10:14.[HVscan][0] Run DQM on rate/currents
+2016-10-12.09:10:14.[HVscan][0] Run DQM on DIP
+2016-10-12.09:10:15.[HVscan][0] Scanning point HV15
+2016-10-12.09:10:15.[HVscan][0] Set voltages, ramping...
+2016-10-12.09:11:53.[HVscan][0] Ramping completed, wait for waiting time...
+2016-10-12.09:13:53.[HVscan][0] Waiting time ended
+2016-10-12.09:13:53.[HVscan][0] Wait until DAQ is ready for data taking
+2016-10-12.09:23:38.[HVscan][0] Received status READY from DAQ, start data taking
+2016-10-12.09:23:41.[HVscan][0] Reset CAEN connection and start monitoring CAEN parameters
+2016-10-12.09:28:58.[HVscan][0] Run DQM on rate/currents
+2016-10-12.09:28:58.[HVscan][0] Run DQM on DIP
+2016-10-12.09:29:00.[HVscan][0] Scanning point HV16
+2016-10-12.09:29:00.[HVscan][0] Set voltages, ramping...
+2016-10-12.09:30:28.[HVscan][0] Ramping completed, wait for waiting time...
+2016-10-12.09:32:28.[HVscan][0] Waiting time ended
+2016-10-12.09:32:28.[HVscan][0] Wait until DAQ is ready for data taking
+2016-10-12.09:38:43.[HVscan][0] Received status READY from DAQ, start data taking
+2016-10-12.09:38:46.[HVscan][0] Reset CAEN connection and start monitoring CAEN parameters
+2016-10-12.09:44:13.[HVscan][0] Run DQM on rate/currents
+2016-10-12.09:44:13.[HVscan][0] Run DQM on DIP
+2016-10-12.09:44:14.[HVscan][0] Scanning point HV17
+2016-10-12.09:44:14.[HVscan][0] Set voltages, ramping...
+2016-10-12.09:45:58.[HVscan][0] Ramping completed, wait for waiting time...
+2016-10-12.09:47:58.[HVscan][0] Waiting time ended
+2016-10-12.09:47:58.[HVscan][0] Wait until DAQ is ready for data taking
+2016-10-12.10:04:38.[HVscan][0] Received status READY from DAQ, start data taking
+2016-10-12.10:04:41.[HVscan][0] Reset CAEN connection and start monitoring CAEN parameters
+2016-10-12.10:10:40.[HVscan][0] Run DQM on rate/currents
+2016-10-12.10:10:40.[HVscan][0] Run DQM on DIP
+2016-10-12.10:10:41.[HVscan][0] Send STOP command to DAQ!
+2016-10-12.10:10:43.[HVscan][0] Set HV to 5000 V
+2016-10-12.10:10:53.[HVscan][0] HVscan successfully ended!

@@ -1,0 +1,132 @@
+#!/usr/bin/env python
+
+import ROOT
+from ROOT import gROOT
+from array import array
+import math
+import string
+from datetime import datetime								
+import time
+import os,sys
+import glob		
+import MySQLdb
+
+sys.path.insert(0, 'python')
+
+if not len(sys.argv) == 2: 
+	print "Give scan ID"
+	sys.exit()
+
+scanid = int(sys.argv[1])
+
+
+scandir = "/var/operation/HVSCAN/%06d/"%scanid
+
+
+db = MySQLdb.connect(host='localhost', user='root', passwd='UserlabGIF++', db='webdcs')
+cursor = db.cursor()
+
+# Definition of the CMS RE scan modes
+# WP > 8500, STBY < 8500, OFF < 2000
+scan_modes = ["DG_WP", "SG_BOT_WP", "SG_TOP_WP", "SG_TN_WP", "SG_TW_WP", "DG_STBY", "SG_BOT_STBY", "SG_TN_STBY", "SG_TW_STBY"]
+HVbound1 = 8500
+HVbound2 = 2000
+
+# Get all chambers in scan and get the gap IDs
+chambers = []
+cursor.execute("SELECT d.chamber FROM detectors d,  hvscan_VOLTAGES h WHERE h.scanid = %d AND h.detectorid = d.id GROUP BY chamber"%scanid)
+for row in cursor.fetchall(): chambers.append(row[0])
+
+
+# Get all ROOT files in scan dir
+ROOTfiles = []
+files = glob.glob(scandir + "Scan*_DAQ.root")
+for afile in files:
+    ROOTfiles.append(afile.replace("_DAQ.root", ""))
+
+
+#############################################################
+
+# Loop over all the chambers
+for chamber in chambers:
+
+	# Retrieve the gaps from the DB
+	gaps = {}
+	adc = {}
+	trolley = 0
+	slot = 0
+	cursor.execute("SELECT d.name, d.id, d.trolley, d.slot, d.RCURR FROM detectors d WHERE d.chamber = '%s'"%chamber)
+	for row in cursor.fetchall(): 
+		gaps[row[0]] = int(row[1])
+		adc[row[0]] = int(row[4])
+		trolley = int(row[2])
+		slot = int(row[3])
+	gaps = sorted(gaps.items()) # sort alphabetically: BOT, TN, TW
+
+	# Loop over all the files and get the correct scan mode based on the HVeff
+	for f in ROOTfiles:
+
+		HVpoint = int(f.split("_").pop().replace("HV", ""))
+
+		fCAEN = ROOT.TFile(f + "_CAEN.root", "READ")
+		fRATE = ROOT.TFile(f + "_DAQ-Rate.root", "READ")
+		
+		HVeff = [] # storage of sorted HVeff values: BOT, TN, TW
+		for gapname,gapid in gaps: HVeff.append(fCAEN.Get("HVeff_" + gapname).GetMean())
+		
+		scan_mode = ""
+		if HVeff[0] > HVbound2 and HVeff[1] > HVbound2 and HVeff[2] > HVbound2: scan_mode = "DG"
+		if HVeff[0] > HVbound2 and HVeff[1] < HVbound2 and HVeff[2] < HVbound2: scan_mode = "SG_BOT"
+		if HVeff[0] < HVbound2 and HVeff[1] > HVbound2 and HVeff[2] > HVbound2: scan_mode = "SG_TOP"
+		if HVeff[0] < HVbound2 and HVeff[1] > HVbound2 and HVeff[2] < HVbound2: scan_mode = "SG_TN"
+		if HVeff[0] < HVbound2 and HVeff[1] < HVbound2 and HVeff[2] > HVbound2: scan_mode = "SG_TW"
+	
+		if scan_mode == "": continue
+		if max(HVeff) > HVbound1: scan_mode += "_WP"
+		else: scan_mode += "_STBY"
+		
+		# Get currents
+		Imon = []
+		Imon_err = []
+		for gapname,gapid in gaps: 
+		
+			tag =  "ADC" if adc[gapname] == 1 else "Imon"
+			tag = "Imon" # consider now only Imon
+			Imon.append(fCAEN.Get(tag + "_" + gapname).GetMean())
+			Imon_err.append(fCAEN.Get(tag + "_" + gapname).GetRMS())
+		Imon_tot = sum(Imon)
+		
+		# Get rates
+		partitions = ["A", "B", "C"]
+		Rates = []
+		Rates_err = []
+		for partition in partitions: 
+		 
+			c = fRATE.Get("Strip_Mean_Noise_" + chamber + "_" + partition)
+			h = c.GetPrimitive("RPC_Instant_Noise_T" + str(trolley) + "S" + str(slot) + "_" + partition + "_pfx")
+			Rates.append(h.GetMean(2))
+		
+		
+		Rates_tot = sum(Rates)
+		
+		# Calculate charge deposition
+		area = 11694.25 # chamber area in cm2
+		charge_dep = 1e6 * Imon_tot / ( area * Rates_tot)
+		print charge_dep
+		charge_dep_err = 0
+
+		# store in DB
+		print "Store in db"
+		query = "INSERT INTO `RES_LONG_CMS-RE` VALUES ('', '%s', '%s', %s, %s, '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')"
+		
+		try:
+			cursor = db.cursor()
+			
+			# delete if entry exist
+			cursor.execute("DELETE FROM `RES_LONG_CMS-RE` WHERE chamber = %s AND scan_mode = %s AND REF_scanid = %s", (chamber, scan_mode, scanid))
+			
+			cursor.execute(query, (scanid, HVpoint, chamber, scan_mode, Rates_tot, Rates[0], Rates[1], Rates[2], Imon_tot, Imon[0], Imon[1], Imon[2], charge_dep, charge_dep_err))
+			db.commit()
+			
+		except (MySQLdb.Error, MySQLdb.Warning) as e:
+			print(e)

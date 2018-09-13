@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+    <html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script>
+                  function HTMLDecode(s){
+                    s = s.replace(new RegExp(/&lt;/gi), "<");
+                    s = s.replace(new RegExp(/&gt;/gi), ">");
+                    s = s.replace(new RegExp(/&amp;/gi), "&");
+                    return s;
+               }
+               </script>
+<link rel="stylesheet" href="http://wikis.cern.ch/s/1627/45/11/_/styles/combined.css?spaceKey=EN" type="text/css">
+<link rel="stylesheet" type="text/css" href="http://wikis.cern.ch/s/1627/45/1/_/download/resources/com.adaptavist.confluence.themes.sitebuilder:sitebuilder/hmenu/src/skin-longhorn.css">
+<link rel="stylesheet" type="text/css" href="http://wikis.cern.ch/plugins/builder/layout-resources.action?layoutId=ENDEPARTMENT&amp;key=EN&amp;resource=combinedcss&amp;hash=-59677564s16274511_">
+<title>DIP Distribution&nbsp;5.6.0 Change Log</title>
+</head>
+<body style="margin: 20px; background-color: white;">
+<h1>DIP Distribution&nbsp;5.6.0 Change Log</h1>
+<noscript>
+<b>WARNING</b> : Javascript is required for correct rendering of the <b>description</b> column.</noscript>
+<p>
+<table class="grid" cellspacing="0" width="100%">
+<caption style="text-align: left; font-weight: bold">
+<a href="http://cern.ch/DIP">DIP Distribution version 5.6.0</a><span class="smalltext"> (19 issues)</span>
+</caption>
+<tbody>
+<tr>
+<th style="text-align: left;">Type</th><th style="text-align: left;">Key</th><th style="text-align: left;">Summary</th><th style="text-align: left;">Description</th>
+</tr>
+<tr class="rowAlternate">
+<td valign="top" nowrap="true"><a href="https://its.cern.ch/jira/browse/DIP-152">Task</a></td><td valign="top" nowrap="true"><b><a href="https://its.cern.ch/jira/browse/DIP-152">DIP-152</a></b></td><td valign="top"><b><a href="https://its.cern.ch/jira/browse/DIP-152">Clean up invalid Javadoc references</a></b></td><td valign="top" id="td2">&lt;p&gt;Java 8 is now much more unforgiving with Javadoc typos and invalid tags (invalid references, invalid HTML, invalid javadoc annotations etc...).&lt;br/&gt;
+The DIP Java API javadoc must be cleaned up.&lt;/p&gt;<script>td2.innerHTML=HTMLDecode(td2.innerHTML);</script></td>
+</tr>
+<tr class="rowNormal">
+<td valign="top" nowrap="true"><a href="https://its.cern.ch/jira/browse/DIP-151">Incident</a></td><td valign="top" nowrap="true"><b><a href="https://its.cern.ch/jira/browse/DIP-151">DIP-151</a></b></td><td valign="top"><b><a href="https://its.cern.ch/jira/browse/DIP-151">Update DIP C++ example makefile in distribution to use 64-bits and remove 32-bits support</a></b></td><td valign="top" id="td3">&lt;p&gt;As reported by Noam, some required changes to the example Makefile and source :&lt;/p&gt;
+
+&lt;ul class="alternate" type="square"&gt;
+	&lt;li&gt;Makefile: lib&amp;gt;lib64&lt;/li&gt;
+	&lt;li&gt;Client.cpp: add #include &amp;lt;unistd.h&amp;gt;, change Sleep(lifeTime)&iquest;&amp;gt;usleep(lifeTime), change lifeTime = 6000000 &iquest;&amp;gt; 600000000&lt;/li&gt;
+	&lt;li&gt;Server.cpp: add #include &amp;lt;stdlib.h&amp;gt; (for atop() call)&lt;/li&gt;
+&lt;/ul&gt;
+<script>td3.innerHTML=HTMLDecode(td3.innerHTML);</script></td>
+</tr>
+<tr class="rowAlternate">
+<td valign="top" nowrap="true"><a href="https://its.cern.ch/jira/browse/DIP-150">New Feature</a></td><td valign="top" nowrap="true"><b><a href="https://its.cern.ch/jira/browse/DIP-150">DIP-150</a></b></td><td valign="top"><b><a href="https://its.cern.ch/jira/browse/DIP-150">Make DIP Data serializable</a></b></td><td valign="top" id="td4">&lt;p&gt;In order to support remoting and cluster support, Dip Data and all of its related members should be made serializable.&lt;/p&gt;<script>td4.innerHTML=HTMLDecode(td4.innerHTML);</script></td>
+</tr>
+<tr class="rowNormal">
+<td valign="top" nowrap="true"><a href="https://its.cern.ch/jira/browse/DIP-144">Improvement</a></td><td valign="top" nowrap="true"><b><a href="https://its.cern.ch/jira/browse/DIP-144">DIP-144</a></b></td><td valign="top"><b><a href="https://its.cern.ch/jira/browse/DIP-144">DIP Browser should provide sorting for all columns in Subscription view.</a></b></td><td valign="top" id="td5">&lt;p&gt;As discussed with Reyes (LHC-OP), it would be very useful to have sorting by any column in the Subscription view.&lt;/p&gt;
+
+&lt;p&gt;Moreover, the Subscription view should be by default sorted by 'Name' in alphabetic order.&lt;/p&gt;<script>td5.innerHTML=HTMLDecode(td5.innerHTML);</script></td>
+</tr>
+<tr class="rowAlternate">
+<td valign="top" nowrap="true"><a href="https://its.cern.ch/jira/browse/DIP-139">Task</a></td><td valign="top" nowrap="true"><b><a href="https://its.cern.ch/jira/browse/DIP-139">DIP-139</a></b></td><td valign="top"><b><a href="https://its.cern.ch/jira/browse/DIP-139">Add support for mandatory JWS JNLPX properties app.name and app.version</a></b></td><td valign="top" id="td6">&lt;p&gt;The CERN utility JWS version 4.2.0 requires the app.name and app.version properties to be defined in the JNLPX file.&lt;br/&gt;
+We need to add these to the JNLP template.&lt;/p&gt;<script>td6.innerHTML=HTMLDecode(td6.innerHTML);</script></td>
+</tr>
+<tr class="rowNormal">
+<td valign="top" nowrap="true"><a href="https://its.cern.ch/jira/browse/DIP-137">Improvement</a></td><td valign="top" nowrap="true"><b><a href="https://its.cern.ch/jira/browse/DIP-137">DIP-137</a></b></td><td valign="top"><b><a href="https://its.cern.ch/jira/browse/DIP-137">Update Log4cplus to v1.1.2</a></b></td><td valign="top" id="td7">&lt;p&gt;As requested as part of ENS-14424, log4cplus needs to be updated to v.1.1.2 for SLC6 compatibility.&lt;/p&gt;<script>td7.innerHTML=HTMLDecode(td7.innerHTML);</script></td>
+</tr>
+<tr class="rowAlternate">
+<td valign="top" nowrap="true"><a href="https://its.cern.ch/jira/browse/DIP-136">Improvement</a></td><td valign="top" nowrap="true"><b><a href="https://its.cern.ch/jira/browse/DIP-136">DIP-136</a></b></td><td valign="top"><b><a href="https://its.cern.ch/jira/browse/DIP-136">Provide sorting of fields in DIP Browser GUI.</a></b></td><td valign="top" id="td8">&lt;p&gt;Hi,&lt;/p&gt;
+
+&lt;p&gt;It was requested by LHC OP (Reyes Alemany Fernandez) &amp;amp; Experiments to provide 2 small features in DIP Browser GUI:&lt;br/&gt;
+(1) sort by default the fields by their name&lt;br/&gt;
+(2) provide possibility to sort by 'Name' and by 'Type'&lt;/p&gt;
+
+&lt;p&gt;Especially (1) is important as now it is difficult to find fields in some complex publications.&lt;/p&gt;
+
+&lt;p&gt;Please see the attached picture why it is important to sort by 'Name'.&lt;/p&gt;
+
+&lt;p&gt;Cheers,&lt;br/&gt;
+Wojtek &lt;/p&gt;<script>td8.innerHTML=HTMLDecode(td8.innerHTML);</script></td>
+</tr>
+<tr class="rowNormal">
+<td valign="top" nowrap="true"><a href="https://its.cern.ch/jira/browse/DIP-135">Bug</a></td><td valign="top" nowrap="true"><b><a href="https://its.cern.ch/jira/browse/DIP-135">DIP-135</a></b></td><td valign="top"><b><a href="https://its.cern.ch/jira/browse/DIP-135">Upgrade to DIM v20r13</a></b></td><td valign="top" id="td9">&lt;p&gt;We need to upgrade to the latest version of DIM v20r13&lt;/p&gt;<script>td9.innerHTML=HTMLDecode(td9.innerHTML);</script></td>
+</tr>
+<tr class="rowAlternate">
+<td valign="top" nowrap="true"><a href="https://its.cern.ch/jira/browse/DIP-133">Improvement</a></td><td valign="top" nowrap="true"><b><a href="https://its.cern.ch/jira/browse/DIP-133">DIP-133</a></b></td><td valign="top"><b><a href="https://its.cern.ch/jira/browse/DIP-133">DIP Browser JNLP must be available during TN-GPN cut</a></b></td><td valign="top" id="td10">&lt;p&gt;Current DIP Browser JNLP file (&lt;a href="http://cern.ch/dipbrowser/launch.jnlp" class="external-link" rel="nofollow"&gt;http://cern.ch/dipbrowser/launch.jnlp&lt;/a&gt;) is served by GPN web server. However, beam operations in CCC must be able to start DIP Browser even during TN-GPN cut.&lt;/p&gt;
+
+&lt;p&gt;Therefore, it is recommended to deploy DIP Browser (with all dependencies) into BE-CO repository, which is inside TN, but also exposed to GPN. More details can be obtained from Niall Stapley.&lt;/p&gt;<script>td10.innerHTML=HTMLDecode(td10.innerHTML);</script></td>
+</tr>
+<tr class="rowNormal">
+<td valign="top" nowrap="true"><a href="https://its.cern.ch/jira/browse/DIP-131">Improvement</a></td><td valign="top" nowrap="true"><b><a href="https://its.cern.ch/jira/browse/DIP-131">DIP-131</a></b></td><td valign="top"><b><a href="https://its.cern.ch/jira/browse/DIP-131">Ship Windows LIB binaries with the DIP API</a></b></td><td valign="top" id="td11">&lt;p&gt;The build does not include the Windows LIB file for the DIP library, but this is required for implicit linking (explicit linking is too much trouble for most users).&lt;/p&gt;<script>td11.innerHTML=HTMLDecode(td11.innerHTML);</script></td>
+</tr>
+<tr class="rowAlternate">
+<td valign="top" nowrap="true"><a href="https://its.cern.ch/jira/browse/DIP-129">Improvement</a></td><td valign="top" nowrap="true"><b><a href="https://its.cern.ch/jira/browse/DIP-129">DIP-129</a></b></td><td valign="top"><b><a href="https://its.cern.ch/jira/browse/DIP-129">Add support for a DEVELOPMENT Dip Name Server</a></b></td><td valign="top" id="td12">&lt;ul&gt;
+	&lt;li&gt;Deploy a new  test DIPNS on the CERN GPN, with TN trust (dipnsdev)
+	&lt;ul&gt;
+		&lt;li&gt;On Openstack&lt;/li&gt;
+		&lt;li&gt;Monitored by MOON (dev systems, no piquet support)&lt;/li&gt;
+	&lt;/ul&gt;
+	&lt;/li&gt;
+	&lt;li&gt;Update the DIP API to point to the development DIPNS by default.
+	&lt;ul&gt;
+		&lt;li&gt;Change must be documented and widely advertised to service users !&lt;/li&gt;
+	&lt;/ul&gt;
+	&lt;/li&gt;
+&lt;/ul&gt;
+<script>td12.innerHTML=HTMLDecode(td12.innerHTML);</script></td>
+</tr>
+<tr class="rowNormal">
+<td valign="top" nowrap="true"><a href="https://its.cern.ch/jira/browse/DIP-128">Improvement</a></td><td valign="top" nowrap="true"><b><a href="https://its.cern.ch/jira/browse/DIP-128">DIP-128</a></b></td><td valign="top"><b><a href="https://its.cern.ch/jira/browse/DIP-128">Digitally sign the DIP JNLP packages with a CERN CA approved certificate</a></b></td><td valign="top" id="td13">&lt;p&gt;Due to new Java security restrictions, we need to sign the DIP JNLP packages with a CERN CA certificate, for it to be accepted by CERN computers that have the CERN CA available.&lt;/p&gt;<script>td13.innerHTML=HTMLDecode(td13.innerHTML);</script></td>
+</tr>
+<tr class="rowAlternate">
+<td valign="top" nowrap="true"><a href="https://its.cern.ch/jira/browse/DIP-127">Improvement</a></td><td valign="top" nowrap="true"><b><a href="https://its.cern.ch/jira/browse/DIP-127">DIP-127</a></b></td><td valign="top"><b><a href="https://its.cern.ch/jira/browse/DIP-127">Add Java system property to specify a default DIP NS to the DIP Browser</a></b></td><td valign="top" id="td14">&lt;p&gt;A Java system property should be available to pass a default DIP NS hostnames list to the DIP Browser.&lt;/p&gt;
+
+&lt;p&gt;Another system property should force the DIP Browser to connect immediately (without waiting for the user to press the connection button).&lt;/p&gt;
+<script>td14.innerHTML=HTMLDecode(td14.innerHTML);</script></td>
+</tr>
+<tr class="rowNormal">
+<td valign="top" nowrap="true"><a href="https://its.cern.ch/jira/browse/DIP-126">Improvement</a></td><td valign="top" nowrap="true"><b><a href="https://its.cern.ch/jira/browse/DIP-126">DIP-126</a></b></td><td valign="top"><b><a href="https://its.cern.ch/jira/browse/DIP-126">DIP Browser JNLP should also provide a GPN startup link</a></b></td><td valign="top" id="td15">&lt;p&gt;We need a second JNLP descriptor that starts up the DIP BROWSER pointing to the GPN name servers.&lt;/p&gt;
+
+&lt;p&gt;Unfortunately it is not possible to inject parameters into the JNLP file without a server side process of some kind, but Wojtek agrees that providing just an alternate JNLP descriptor for GPN name servers would be good enough.&lt;/p&gt;
+
+
+&lt;p&gt;Initial proposal :&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Hi Brice,&lt;/p&gt;
+
+&lt;p&gt;I would like to have script which starts the DIP browser with GPN name servers.&lt;br/&gt;
+I've done a bash script as follows:&lt;/p&gt;
+
+&lt;p&gt;&amp;lt;START&amp;gt;&lt;br/&gt;
+#!/bin/bash&lt;/p&gt;
+
+&lt;p&gt;DIPNS="dipnsgpn1,dipnsgpn2"&lt;br/&gt;
+echo "DIP is set to: $DIPNS"&lt;/p&gt;
+
+&lt;p&gt;javaws &lt;a href="http://cern.ch/dipbrowser/launch.jnlp" class="external-link" rel="nofollow"&gt;http://cern.ch/dipbrowser/launch.jnlp&lt;/a&gt;&lt;br/&gt;
+&amp;lt;END&amp;gt;&lt;/p&gt;
+
+&lt;p&gt;However, $DIPNS env. variable is not picked up by the DIP browser and it doesn't display GPN name servers on startup.&lt;br/&gt;
+Could you advise how this should be done ?&lt;/p&gt;&lt;/blockquote&gt;<script>td15.innerHTML=HTMLDecode(td15.innerHTML);</script></td>
+</tr>
+<tr class="rowAlternate">
+<td valign="top" nowrap="true"><a href="https://its.cern.ch/jira/browse/DIP-125">Task</a></td><td valign="top" nowrap="true"><b><a href="https://its.cern.ch/jira/browse/DIP-125">DIP-125</a></b></td><td valign="top"><b><a href="https://its.cern.ch/jira/browse/DIP-125">Upgrade to Java 1.7</a></b></td><td valign="top" id="td16">&lt;p&gt;The DIP Java API now requires Java 1.7 or later.&lt;/p&gt;<script>td16.innerHTML=HTMLDecode(td16.innerHTML);</script></td>
+</tr>
+<tr class="rowNormal">
+<td valign="top" nowrap="true"><a href="https://its.cern.ch/jira/browse/DIP-124">New Feature</a></td><td valign="top" nowrap="true"><b><a href="https://its.cern.ch/jira/browse/DIP-124">DIP-124</a></b></td><td valign="top"><b><a href="https://its.cern.ch/jira/browse/DIP-124">DipData should expose name value pairs as java Map</a></b></td><td valign="top" id="td17">&lt;p&gt;DipData should expose its name value pairs as a standard java map.&lt;/p&gt;<script>td17.innerHTML=HTMLDecode(td17.innerHTML);</script></td>
+</tr>
+<tr class="rowAlternate">
+<td valign="top" nowrap="true"><a href="https://its.cern.ch/jira/browse/DIP-123">New Feature</a></td><td valign="top" nowrap="true"><b><a href="https://its.cern.ch/jira/browse/DIP-123">DIP-123</a></b></td><td valign="top"><b><a href="https://its.cern.ch/jira/browse/DIP-123">Add support for mock testing in the API</a></b></td><td valign="top" id="td18">&lt;p&gt;The Java API should expose basic mock objects (factory, publication, subscription, DipData) that would ease the unit testing of DIP related logic.&lt;/p&gt;
+
+&lt;p&gt;In addition, a DipQualityEnum enumeration should be introduced to allow better programmatic handling of DIP quality.&lt;/p&gt;<script>td18.innerHTML=HTMLDecode(td18.innerHTML);</script></td>
+</tr>
+<tr class="rowNormal">
+<td valign="top" nowrap="true"><a href="https://its.cern.ch/jira/browse/DIP-122">Improvement</a></td><td valign="top" nowrap="true"><b><a href="https://its.cern.ch/jira/browse/DIP-122">DIP-122</a></b></td><td valign="top"><b><a href="https://its.cern.ch/jira/browse/DIP-122">DIP Browser parses strings inefficiently and freezes</a></b></td><td valign="top" id="td19">&lt;p&gt;As identified in ENS-12060, the DIP Browser is very inefficient at turning large publication data arrays to string for display. Furthermore, the GUI thread is also the one in charge of parsing DIP data, which makes the whole application appear sluggish.&lt;/p&gt;
+
+&lt;p&gt;We need to limit the parsing of arrays say to the first 100 entries, which is sufficient to indicate whether the publication contains valid data, but won't slow down the DIP browser.&lt;/p&gt;
+
+&lt;p&gt;Initially reported in &lt;a href="https://issues.cern.ch/browse/CMW-1352" class="external-link" rel="nofollow"&gt;https://issues.cern.ch/browse/CMW-1352&lt;/a&gt;&lt;/p&gt;<script>td19.innerHTML=HTMLDecode(td19.innerHTML);</script></td>
+</tr>
+<tr class="rowAlternate">
+<td valign="top" nowrap="true"><a href="https://its.cern.ch/jira/browse/DIP-110">Improvement</a></td><td valign="top" nowrap="true"><b><a href="https://its.cern.ch/jira/browse/DIP-110">DIP-110</a></b></td><td valign="top"><b><a href="https://its.cern.ch/jira/browse/DIP-110">DIP Browser publications should bring any existing subscription window to the front</a></b></td><td valign="top" id="td20"><script>td20.innerHTML=HTMLDecode(td20.innerHTML);</script></td>
+</tr>
+</tbody>
+</table>
+</p>
+</body>
+</html>
