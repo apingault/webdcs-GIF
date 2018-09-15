@@ -12,5 +12,5 @@ if(file_exists($filename)) {
         echo trim($line) . '<br />';
     }
 }
-else echo "No log file found";
+else echo "File ".$filename." not found";
 echo "</pre>";

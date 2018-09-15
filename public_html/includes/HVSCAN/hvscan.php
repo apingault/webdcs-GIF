@@ -83,12 +83,14 @@ for($i = 1; $i <= $hvscan['maxHVPoints']; $i++) {
 <ul class="tab" style="width: 100%">
     <li><a href="index.php?q=hvscan&p=hvscan&id=<?=$id?>&r=overview">Scan overview</a></li>
     <li><a href="index.php?q=hvscan&p=hvscan&id=<?=$id?>&r=voltages">Voltages</a></li>
-	<li><a href="index.php?q=hvscan&p=hvscan&id=<?=$id?>&r=log">Log file</a></li>
-        <li><a href="index.php?q=hvscan&p=hvscan&id=<?=$id?>&r=rootjs">ROOT Browser</a></li>
+    <li><a href="index.php?q=hvscan&p=hvscan&id=<?=$id?>&r=log">Log file</a></li>
+    <li><a href="index.php?q=hvscan&p=hvscan&id=<?=$id?>&r=log_caen">CaenLog</a></li>
+    <li><a href="index.php?q=hvscan&p=hvscan&id=<?=$id?>&r=rootjs">ROOT Browser</a></li>
     <?php if($TYPESCAN == "daq") { ?><li><a href="index.php?q=hvscan&p=hvscan&id=<?=$id?>&r=maskingtool">Masking tool</a></li><?php } ?>
 	<li style="float: right"><form style="margin-top: 3px; margin-right: 3px;"><select name="HVSelect" id="HVSelect"><?php echo $hvpoints; ?><select></form></li>
 	<?php if($TYPESCAN == "daq") { ?><li style="float: right;"><a href="index.php?q=hvscan&p=hvscan&id=<?=$id?>&r=dqm_daq&HV=<?=$HV?>">DQM DAQ</a></li><?php }?>
 	<li style="float: right;"><a href="index.php?q=hvscan&p=hvscan&id=<?=$id?>&r=dqm_dip&HV=<?=$HV?>">DQM DIP</a></li>
+    <li style="float: right;"><a href="index.php?q=hvscan&p=hvscan&id=<?=$id?>&r=dqm_log&HV=<?=$HV?>">DQM Log</a></li>
 	<li style="float: right;"><a href="index.php?q=hvscan&p=hvscan&id=<?=$id?>&r=dqm_caen&HV=<?=$HV?>">DQM CAEN</a></li>
 </ul>
        
