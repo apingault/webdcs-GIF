@@ -322,8 +322,12 @@ int main(int argC, char* argv[]) {
                     run = 1;
                     p -= measure_intval; // remvove increment of time
                 }
-                else if(p < measure_time*60) run = 1;
+                else if(p < measure_time*60) run = 1; // run on time base
+                else if(RUN.compare("RUNNING") == 0) run = 1; // run on DAQ base // added 
                 else {
+                    //cout << "STOP " << endl;
+                    const std::string msgRun = "Stopping the run, time spent = " + to_string(p);
+                    handleWarning(msgRun, 0);
                     run = 0;
                     system(("python /home/webdcs/software/webdcs/CAEN/python/DAQ.py --id " + to_string(ID) + " --HV " + to_string(j) + " --stop").c_str()); // > /dev/null 2>&1 &
 
