@@ -217,7 +217,7 @@ int main(int argC, char* argv[]) {
             while(DAQReady == 0) {
 		
                 // update run file
-                system(("python /home/webdcs/software/webdcs/CAEN/python/DAQ.py --id " + to_string(ID) + " --HV " + to_string(j) + " --refreshrun --maxtriggers-1 > /dev/null 2>&1 &").c_str());
+                system(("python /home/webdcs/software/webdcs/CAEN/python/DAQ.py --id " + to_string(ID) + " --HV " + to_string(j) + " --refreshrun --maxtriggers -1 > /dev/null 2>&1 &").c_str());
                 
                 readRUN();
                 cout << RUN << endl;
