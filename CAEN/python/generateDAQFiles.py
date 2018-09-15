@@ -126,7 +126,7 @@ if opts.daqini:
         file.close()
 
         ### COPY TO SERVER
-        call("sshpass -p 'UserlabGIF++' scp \"/var/operation/RUN/daq_digitizer.ini\" webdcs@pccmsrpc-server01:webdcs/RUN/", shell=True)
+        # call("sshpass -p 'UserlabGIF++' scp \"/var/operation/RUN/daq_digitizer.ini\" webdcs@pccmsrpc-server01:webdcs/RUN/", shell=True)
 
 if opts.mapping:
 
