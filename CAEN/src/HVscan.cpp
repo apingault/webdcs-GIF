@@ -182,7 +182,11 @@ int main(int argC, char* argv[]) {
                 int ch = atoi(row[0]);
                 int status;
                 CAEN1->getvalue("Status", ch, slot, status);
-                if(status == 3 || status == 5) {			
+                float hvMon, hvSet; 
+                CAEN1->getvalue("VMon", ch, slot, hvMon);
+                CAEN1->getvalue("V0Set", ch, slot, hvSet);
+
+                if((status == 3 || status == 5) && hvMon != hvSet) {			
                     ramping = 1;
                     break;
                 }
