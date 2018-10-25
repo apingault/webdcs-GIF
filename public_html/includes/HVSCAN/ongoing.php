@@ -22,6 +22,28 @@ if(isset($_POST['stop']) and $_POST['stop']) {
         msg("The kill voltage should be between 0 and 10 kV", "error");
     }
     else {
+        $run = HVscanOngoing();
+        // msg("run $id : Kill voltage = '$killed_hv'", "error");
+        // if (str_replace(" ", "", $killed_hv) == ""){
+        //     msg("No value given for kill voltage, getting from settings", "warning");
+        //     $sqlKill = $DB['MAIN']->prepare("SELECT lastHV FROM hvscan WHERE id = $id LIMIT 1");
+        //     $sqlKill->execute();
+        //     $sql_hv = $sqlKill->fetch();
+        //     msg("Kill voltage = '$sql_hv'", "error");
+        // }
+
+    file_put_contents("/var/operation/RUN/run", "KILL"); // Send KILL command to DAQ
+
+    $timePassed = 0;
+    while ($timePassed < 10)
+    {
+        $runVal = file_get_contents("/var/operation/RUN/run");
+        if ($runVal == "STOP"){
+            break;
+        }
+        $timePassed += 1;
+        sleep(1);
+    }
 		
     $run = HVscanOngoing();
         
@@ -30,12 +52,17 @@ if(isset($_POST['stop']) and $_POST['stop']) {
     $DCSPID = shell_exec("ps -Al | grep HVscan | awk '{print $4}'"); // Get the PID from the running process
     $DAQPID = shell_exec("ps -Al | grep daq | awk '{print $4}'");
 
+    $daqtdb = $DB['MAIN']->prepare("SELECT value FROM settings WHERE setting = 'daqtype'");
+    $daqtdb->execute();
+    $daqtype = $daqtdb->fetch();
+    if ($daqtype == 'digitizer'){
+        shell_exec("pkill -f wavedump");
+    }
 
     shell_exec("pkill -f daq");
     shell_exec("pkill -f HVscan");
 
 
-    file_put_contents("/var/operation/RUN/run", "KILL"); // Send KILL command to DAQ
     
     // SEND LYON STOP
     exec("/home/webdcs/stop.py");
@@ -49,6 +76,25 @@ if(isset($_POST['stop']) and $_POST['stop']) {
     $log = sprintf("%s.[WEBDCS] Lower voltage on detectors\n", date('Y-m-d.H.i.s'));
     file_put_contents($logfile, $log, FILE_APPEND);
 
+    // if($kill_hv <= 20) {
+    //     $log = sprintf("%s.[WEBDCS] Set low HV on detectors and turn off \n", date('Y-m-d.H.i.s'));
+    //     file_put_contents($logfile, $log, FILE_APPEND);
+    // }
+    // else if($kill_hv == 99999) {
+    //     $sqlVolt = $DB['MAIN']->prepare("SELECT HV FROM hvscan_VOLTAGES WHERE id=$id AND time_end IS NOT NULL ORDER BY HV DESC LIMIT 1");
+    //     $sqlVolt->execute();
+    //     $kill_hv = $sqlVolt->fetch();
+    //     $log = sprintf("%s.[WEBDCS] Keep latest voltages ($kill_hv) on detectors \n", date('Y-m-d.H.i.s'));
+    //     file_put_contents($logfile, $log, FILE_APPEND);
+
+    // }
+    // else {
+    //     $sqlVolt = $DB['MAIN']->prepare("SELECT value FROM settings WHERE setting='standby_voltage'");
+    //     $sqlVolt->execute();
+    //     $kill_hv = $sqlVolt->fetch();
+    //     $log = sprintf("%s.[WEBDCS] Set HV to $killed_hv V \n", date('Y-m-d.H.i.s'));
+    //     file_put_contents($logfile, $log, FILE_APPEND);
+    // }
 
     // Update database
     $end = time();
