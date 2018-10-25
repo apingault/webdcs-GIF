@@ -336,7 +336,14 @@ int main(int argC, char* argv[]) {
                 else if(p < measure_time*60) run = 1; // run on time base
                 else if(RUN.compare("RUNNING") == 0) run = 1; // run on DAQ base // added 
                 else {
-                    //cout << "STOP " << endl;
+                    usleep(900000);
+                    cout << "DAQ NOT RUNNING ? CHECKING AGAIN ... " << endl;
+                    if (RUN.compare("RUNNING") == 0){
+                    cout << "***ALLISOK" << endl;
+                        run = 1;
+                        continue;
+                    }
+                     cout << "DAQ NOT RUNNING ANYMORE... STOPPING " << endl;
                     const std::string msgRun = "Stopping the run, time spent = " + to_string(p);
                     handleWarning(msgRun, 10);
                     run = 0;
@@ -553,6 +560,8 @@ void initialize() {
         system(("python /home/webdcs/software/webdcs/CAEN/python/generateDAQFiles.py --id " + to_string(ID) + " --daqini --HV 1 --maxtriggers 5000").c_str());
         */
 
+        // Wait for daqini to be generated before starting the daq
+        sleep(1);
         // Start DAQ program
         handleWarning("Start HVScan DAQ", 10, __LINE__);
         system(("python /home/webdcs/software/webdcs/CAEN/python/DAQ.py --id " + to_string(ID) + " --start").c_str());
