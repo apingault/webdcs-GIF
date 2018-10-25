@@ -35,14 +35,13 @@ $remaining = ""; // mapping files
 
 // Open current mapping file
 $dirFile = "/var/operation/HVSCAN/".$idstring."/";
-$mappingFile = $dirFile . "ChannelsMapping.csv";
+$mappingFile = $dirFile . "Mapping.csv";
 if(!file_exists($mappingFile)) {
     
     $error = "Mapping file not found.";
+    msg($error,"error");
 }
 else {
-    
-    $ts = $trolley.$slot; // trolley-slot combination, to be searched in mapping file
     
     $handle = fopen($mappingFile, "r");
     while(($line = fgets($handle)) !== false) {
@@ -50,9 +49,8 @@ else {
         // skip the # lines
 
         if (strpos($line, '#') !== false) continue;
-        $target = substr($line, 0, 2);
-       // echo $target. '';
-        if($target == $ts) $mapping .= $line;
+        $target = substr($line, 0, 1);
+        if($target == $slot) $mapping .= $line;
         else $remaining .= $line;
     }
 
@@ -73,7 +71,7 @@ if(isset($_POST['submit'])) {
     if(!file_exists($dirFile . 'BACKUP')) {
         mkdir($dirFile . 'BACKUP');
     }
-    $newFileName = $dirFile . 'BACKUP/ChannelsMapping'.$modifTime.'.csv';
+    $newFileName = $dirFile . 'BACKUP/Mapping'.$modifTime.'.csv';
     rename($mappingFile, $newFileName);
     
     // Generate new one (write remaining + new mapping)
