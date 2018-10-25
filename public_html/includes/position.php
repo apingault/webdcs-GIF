@@ -1,11 +1,13 @@
 <?php
+
 if(!defined('INDEX')) die("Access denied");
+
 
 $installedTrolleys = installedTrolleys();
 $selectedTrolley = $_GET['trolley'];
 if($selectedTrolley == "") $selectedTrolley = 1;
 
-$sth1 = $dbh->prepare("SELECT * FROM position WHERE trolley_id = :tid ORDER BY time DESC");
+$sth1 = $DB['MAIN']->prepare("SELECT * FROM position WHERE trolley_id = :tid ORDER BY time DESC");
 $sth1->execute(array(":tid" => $selectedTrolley));
 $positions = $sth1->fetchAll();
 
@@ -36,7 +38,7 @@ if(isset($_POST['submit']) && getCurrentRole() != 0) {
     else {
         
         $tmp = mktime($h, $min, 0, $m, $d, $y);
-        $sth1 = $dbh->prepare("INSERT INTO position (trolley_id, time, position, coordinate_x, coordinate_z, comment) VALUES ('".$selectedTrolley."', '".$tmp."', '".$positon_mode."', '".$xco."', '".$zco."', '".$comment."')");
+        $sth1 = $DB['MAIN']->prepare("INSERT INTO position (trolley_id, time, position, coordinate_x, coordinate_z, comment) VALUES ('".$selectedTrolley."', '".$tmp."', '".$positon_mode."', '".$xco."', '".$zco."', '".$comment."')");
         $sth1->execute();
         $pass = "trolley position successfully updated!";
     }

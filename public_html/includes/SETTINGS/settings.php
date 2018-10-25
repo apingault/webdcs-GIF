@@ -4,11 +4,11 @@
  * settings.php
  */
 
-//require_once 'scripts/updatefile.php';
-
+$pass = "";
+$error = "";
 
 if(isset($_POST['submit']) AND $_POST['submit'] == 'Save configuration') {
- 
+
     $title = filter_input(INPUT_POST, 'title');
     $freq = filter_input(INPUT_POST, 'stabtest_freq');
     $DAQ_HV_points = filter_input(INPUT_POST, 'DAQ_HV_points');
@@ -17,25 +17,21 @@ if(isset($_POST['submit']) AND $_POST['submit'] == 'Save configuration') {
     $RPC_mode = filter_input(INPUT_POST, 'RPC_mode');
     $DAQ_HV_template_ID = filter_input(INPUT_POST, 'DAQ_HV_template_ID');
     //$ACTIVE_TROLLEY_ID = filter_input(INPUT_POST, 'ACTIVE_TROLLEY_ID');
-    
+
     $CURRENT_HV_points = filter_input(INPUT_POST, 'CURRENT_HV_points');
     $CURRENT_measuring_time = filter_input(INPUT_POST, 'CURRENT_measuring_time');
     $measuring_intval = filter_input(INPUT_POST, 'measuring_intval');
     $CURRENT_HV_template_ID = filter_input(INPUT_POST, 'CURRENT_HV_template_ID');
-    
+
     $STABILITY_template_ID = filter_input(INPUT_POST, 'STABILITY_template_ID');
-	
-	$daqini = filter_input(INPUT_POST, 'daqini');
+
+    $daqini_default = filter_input(INPUT_POST, 'daqini_default');
+    $daqini_digitizer = filter_input(INPUT_POST, 'daqini_digitizer');
+    $daqtype = filter_input(INPUT_POST, 'daqtype');
     
-    // Select all trolleys
-    $installedTrolleys = installedTrolleys();
-    $trolleySelection = "";
-    foreach($installedTrolleys as $value) {   
-        if(isset($_POST['trolley_ID'.$value['id']]))$trolleySelection .= ':'.$value['id'];
-    }
     
     if(empty($title)) {
-        $error = "enter a title.";      
+        $error = "enter a title.";
     }
     elseif(!is_numeric($standby_voltage)) {
         $error = "enter a measure frequency.";
@@ -48,37 +44,24 @@ if(isset($_POST['submit']) AND $_POST['submit'] == 'Save configuration') {
         settings("standby_voltage", $standby_voltage);
         settings("RPC_mode", $RPC_mode);
         settings("DAQ_HV_template_ID", $DAQ_HV_template_ID);
-        settings("ACTIVE_TROLLEYS", $trolleySelection);
         settings("CURRENT_HV_points", $CURRENT_HV_points);
         settings("CURRENT_measuring_time", $CURRENT_measuring_time);
         settings("measuring_intval", $measuring_intval);
         settings("CURRENT_HV_template_ID", $CURRENT_HV_template_ID);
         settings("STABILITY_template_ID", $STABILITY_template_ID);
-		settings("daqini", $daqini);
-        
-        
+        settings("daqini_default", $daqini_default);
+        settings("daqini_digitizer", $daqini_digitizer);
+        settings("daqtype", $daqtype);
+
+
         $pass = 'Configuration successfully saved.';
-	//setCrontab();
+    //setCrontab();
     }
-        
+
 }
 
-if(isset($_POST['clearsem'])) {
- 
-    exec('sh /home/user/www/cgi-bin/clearsem.sh');
-    $pass = 'Semaphore cleared';
-}
 
 $sel = (settings('RPC_mode') == 'double_gap') ? 'selected="selected"' : '';
-
-
-//dd
-$installedTrolleys = installedTrolleys();
-$trolleys = "";
-$trolleySelection = explode(':', settings('ACTIVE_TROLLEYS'));
-foreach($installedTrolleys as $value) {
-    $trolleys .= (in_array($value['id'], $trolleySelection)) ? '<input type="checkbox" checked="checked" name="trolley_ID'.$value['id'].'" /> '.$value['name'].'&nbsp;&nbsp;&nbsp;' : '<input type="checkbox" name="trolley_ID'.$value['id'].'" /> '.$value['name'].'&nbsp;&nbsp;&nbsp;';
-}
 
 // list of DAQ-Ini files
 
@@ -86,16 +69,13 @@ foreach($installedTrolleys as $value) {
 
 <div class="content">
 
-    <?php 
+    <?php
     if(!empty($error)) { echo '<div class="error">Error: '.$error.'</div>'; }
     elseif($pass != '') { echo '<div class="pass">'.$pass.'</div>'; }
     ?>
-    
-    <h3>Settings</h3>
-    
-    &raquo <a href="index.php?q=physicsflags">Physics flags administration</a><br />
 
-    <br /><br />
+    <h3>Settings</h3>
+ 
     <form method="post" action="">
         <table>
             <tr style="height: 25px">
@@ -108,10 +88,6 @@ foreach($installedTrolleys as $value) {
             <tr style="height: 25px">
                 <td width="150px">Standby voltage:</td>
                 <td><input name="standby_voltage" value="<?php echo settings("standby_voltage"); ?>" type="text"> V</td>
-            </tr>
-            <tr style="height: 25px">
-                <td width="150px">Active trolley:</td>
-                <td><?php echo $trolleys; ?></td>
             </tr>
             <tr style="height: 25px">
                 <td width="150px">RPC mode:</td>
@@ -143,22 +119,56 @@ foreach($installedTrolleys as $value) {
                 <td><input name="DAQ_HV_template_ID" value="<?php echo settings("DAQ_HV_template_ID"); ?>" type="text"></td>
             </tr>
 			<tr style="height: 25px">
-                <td width="150px">DAQ INI file:</td>
+                <td width="150px">Default DAQ INI file:</td>
                 <td>
-					<select name="daqini">
+                <select name="daqini_default">
+                <?php
+                $q = $DB['MAIN']->prepare("SELECT * FROM daqini WHERE daqtype = 'default' ORDER BY id DESC");
+                $q->execute();
+                $f = $q->fetchAll();
+                foreach($f as $x) {
+                    if(settings("daqini_default") == $x['id']) $sel = 'selected="selected"';
+                    else $sel = "";
+                    echo '<option '.$sel.' value="'.$x['id'].'">'.$x['name'].'</option>';
+                }
+                ?>
+                </select>
+                </td>
+            </tr>
+            <tr style="height: 25px">
+                <td width="150px">Digitizer DAQ INI file:</td>
+                <td>
+                <select name="daqini_digitizer">
+                <?php
+                $q = $DB['MAIN']->prepare("SELECT * FROM daqini WHERE daqtype = 'digitizer' ORDER BY id DESC");
+                $q->execute();
+                $f = $q->fetchAll();
+                foreach($f as $x) {
+                    if(settings("daqini_digitizer") == $x['id']) $sel = 'selected="selected"';
+                    else $sel = "";
+                    echo '<option '.$sel.' value="'.$x['id'].'">'.$x['name'].'</option>';
+                }
+                ?>
+                </select>
+                </td>
+            </tr>
+            
+		<tr style="height: 25px">
+                <td width="150px">Default DAQ:</td>
+                <td>
+					<select name="daqtype">
 					<?php
-					$q = $dbh->prepare("SELECT * FROM daqini ORDER BY id DESC");
-					$q->execute();
-					$f = $q->fetchAll();
-					foreach($f as $x) {
-						if(settings("daqini") == $x['id']) $sel = 'selected="selected"';
+
+					foreach($daq_types as $key => $val) {
+						if(settings("daqtype") == $key) $sel = 'selected="selected"';
 						else $sel = "";
-						echo '<option '.$sel.' value="'.$x['id'].'">'.$x['name'].'</option>';
+						echo '<option '.$sel.' value="'.$key.'">'.$val.'</option>';
 					}
 					?>
 					</select>
 				</td>
             </tr>
+            
             <tr style="height: 25px">
                 <td width="150px" colspan="2"><b>CURRENT HVscan settings</b></td>
             </tr>
@@ -184,12 +194,12 @@ foreach($installedTrolleys as $value) {
         </table>
 
         <br />
-        <input value="Save configuration" type="submit" name="submit" /> 
+        <input value="Save configuration" type="submit" name="submit" />
     </form>
-   
-    
-    
-    
+
+
+
+
     <h3>CAEN error codes</h3>
 
     <table class="table" cellpadding="5px" cellspacing="0">
@@ -200,7 +210,7 @@ foreach($installedTrolleys as $value) {
                 <td class="oddrow" width="660px">explanation</td>
             </tr>
         </thead>
-        <tbody>  
+        <tbody>
             <tr>
                 <td>-</td>
                 <td>0</td>
@@ -291,7 +301,7 @@ foreach($installedTrolleys as $value) {
                 <td>-</td>
                 <td>Reserved, forced to 0</td>
             </tr>
-        </tbody>             
+        </tbody>
     </table>
     <br /><br />
 

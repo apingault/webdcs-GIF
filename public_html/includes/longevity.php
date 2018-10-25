@@ -1,6 +1,14 @@
 <?php
 if(!defined('INDEX')) die("Access denied");
 
+// DEFAULTS
+	putenv('ROOTSYS=/usr/local/root/');
+	putenv('PATH=/usr/local/root/bin:'.getenv("PATH"));
+	putenv('PATH=~/bin:./bin:.:'.getenv("PATH"));
+	putenv('LD_LIBRARY_PATH='.getenv("ROOTSYS").'/lib:'.getenv("LD_LIBRARY_PATH"));
+	putenv('DYLD_LIBRARY_PATH='.getenv("ROOTSYS").'/lib:$DYLD_LIBRARY_PATH');
+	putenv('PYTHONPATH='.getenv("ROOTSYS").'/lib/:'.getenv("PYTHONPATH"));
+
 require_once 'stability/functions.php';
 
 // CONFIG

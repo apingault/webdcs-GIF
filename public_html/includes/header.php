@@ -19,6 +19,7 @@ require_once require_once url('config/menu.php', 'local');
 	
 	loadJS("jquery.tablesorter.min.js");
 	loadJS("jquery.tablesorter.widgets.js");
+        loadJS("excellentexport.min.js");
 	loadCSS("tablesorter.css");
 	
 	loadJS("ajax.js");

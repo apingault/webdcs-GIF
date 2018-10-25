@@ -1,5 +1,12 @@
 <?php
 
+
+$sth1 = $DB['MAIN']->prepare("SELECT value FROM settings WHERE setting = 'daqtype'");
+$sth1->execute();
+$p = $sth1->fetch();
+msg($p, "warning");
+
+
 // Get 
 $run = file_get_contents("/var/operation/RUN/run");
 $HVprocess = shell_exec("ps -Al | grep HV");

@@ -1,5 +1,22 @@
 <?php
 
+function getIntegratedCharge($time, $chamber) {
+    
+    global $DB;
+    
+    $sql = "SELECT QINT_TOT FROM `RAW_QINT_".$chamber."` WHERE timestamp < ".$time." ORDER BY timestamp DESC LIMIT 1";
+    $sth1 = $DB['LONGEVITY']->prepare($sql);
+    $sth1->execute();
+    $values = $sth1->fetch();
+    
+    if($sth1->rowCount()  == 0) {
+        return 0;
+    }
+    else {
+        return $values['QINT_TOT'];
+    }
+}
+
 function setRunStatus($runid, $status) {
     
     global $dbh;

@@ -15,10 +15,7 @@ $config['CAEN_dir'] = '/var/www/software/CAEN/'; // Path to the c executables
 $config['meteo_dir'] = '/home/user/meteo/'; // Meteo files location
 $config['data_dir'] = '/home/user/data/'; // Data files location
 $config['DAQ_dir'] = '/var/operation/HVSCAN_DAQ/'; // Data files location
-
-
-
-
+$config['HVSCAN_dir'] = '/var/operation/HVSCAN/'; // Data files location
 $config['caen_port'] = '1527';
 
 
@@ -53,9 +50,17 @@ $stability_types = array();
 $stability_types['default'] = "Default stability";
 $stability_types['test'] = "Test run (low voltages)";
 
+
+$daq_types = array();
+$daq_types['default'] = "Default TDC DAQ";
+$daq_types['digitizer'] = "Digitizer DAQ (DT5742)";
+// $daq_types['digitizerDesktop'] = "Digitizer DAQ (DT5742)";
+// $daq_types['digitizerVME'] = "Digitizer DAQ (V1720)";
+$daq_types['lyondaq'] = "Lyon DAQ";
+
 $lastHV = array();
 $lastHV['15'] = "Turn off";
-$lastHV['5000'] = "Standby";
+$lastHV['9000'] = "Standby";
 $lastHV['99999'] = "Last HV point, do nothing";
 
 function secondsToTime($seconds) {
@@ -100,6 +105,7 @@ $ICON_CROSS = '<img src="config/images/cross.png" />';
 $ICON_TICK = '<img src="config/images/tick.png" />';
 $ICON_EDIT = '<img src="config/images/icons/edit.png" />';
 $ICON_DELETE = '<img src="config/images/tick.png" />';
+$ICON_ZOOM = '<img src="config/images/icons/zoom.png" />';
 
 // Load libraries!
 putenv('ROOTSYS=/usr/local/root/');

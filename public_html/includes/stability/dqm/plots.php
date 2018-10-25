@@ -16,26 +16,14 @@ if(isset($_POST['plots'])) {
 	putenv('LD_LIBRARY_PATH='.getenv("ROOTSYS").'/lib:'.getenv("LD_LIBRARY_PATH"));
 	putenv('DYLD_LIBRARY_PATH='.getenv("ROOTSYS").'/lib:$DYLD_LIBRARY_PATH');
 	putenv('PYTHONPATH='.getenv("ROOTSYS").'/lib/:'.getenv("PYTHONPATH"));
-
-	# NOTICE: chmod 775 python scripts!
 	
-	
-	# Arguments: ./plotQintCurrents.py RE2-2-NPD-BARC-9 CURR RAW ALL
-	$command = escapeshellcmd('/home/webdcs/software/webdcs/scripts/longevity_analysis/plotQintCurrents.py ' . $currentChamberName . ' CURR RAW '.$id);
+	$command = escapeshellcmd('python /home/webdcs/software/webdcs/scripts/longevity_analysis/runPlots.py --chamber=' . $currentChamberName . '  --id='.$id);
 	//echo $command;
 	$output = shell_exec($command);
 
-	$command = escapeshellcmd('/home/webdcs/software/webdcs/scripts/longevity_analysis/plotQintCurrents.py ' . $currentChamberName . ' CURR CORR '.$id);
-	$output = shell_exec($command);
-
-	
 	//echo '<pre>'.$output.'</pre>';
 }
 
-
-?>
-
-<?php
 if($_SESSION['userid'] == 6) {
 ?>
 
@@ -65,14 +53,19 @@ $('.qint-images').magnificPopup({
 
 <div class="qint-images">
 	
-	<a href="/STABILITY/<?=$idstring?>/plots/<?=$currentChamberName?>-TOT_CURR_RAW.png"><img width="245px" src="/STABILITY/<?=$idstring?>/plots/<?=$currentChamberName?>-TOT_CURR_RAW.png" /></a>
-	<a href="/STABILITY/<?=$idstring?>/plots/<?=$currentChamberName?>-BOT_CURR_RAW.png"><img width="245px" src="/STABILITY/<?=$idstring?>/plots/<?=$currentChamberName?>-BOT_CURR_RAW.png" /></a>
-	<a href="/STABILITY/<?=$idstring?>/plots/<?=$currentChamberName?>-TN_CURR_RAW.png"><img width="245px" src="/STABILITY/<?=$idstring?>/plots/<?=$currentChamberName?>-TN_CURR_RAW.png" /></a>
-	<a href="/STABILITY/<?=$idstring?>/plots/<?=$currentChamberName?>-TW_CURR_RAW.png"><img width="245px" src="/STABILITY/<?=$idstring?>/plots/<?=$currentChamberName?>-TW_CURR_RAW.png" /></a>
+	<a href="/STABILITY/<?=$idstring?>/plots/<?=$currentChamberName?>-TOT_CURR.png?d=<?=$RAND?>"><img width="245px" src="/STABILITY/<?=$idstring?>/plots/<?=$currentChamberName?>-TOT_CURR.png?d=<?=$RAND?>" /></a>
+	<a href="/STABILITY/<?=$idstring?>/plots/<?=$currentChamberName?>-BOT_CURR.png?d=<?=$RAND?>"><img width="245px" src="/STABILITY/<?=$idstring?>/plots/<?=$currentChamberName?>-BOT_CURR.png?d=<?=$RAND?>" /></a>
+	<a href="/STABILITY/<?=$idstring?>/plots/<?=$currentChamberName?>-TN_CURR.png?d=<?=$RAND?>"><img width="245px" src="/STABILITY/<?=$idstring?>/plots/<?=$currentChamberName?>-TN_CURR.png?d=<?=$RAND?>" /></a>
+	<a href="/STABILITY/<?=$idstring?>/plots/<?=$currentChamberName?>-TW_CURR.png?d=<?=$RAND?>"><img width="245px" src="/STABILITY/<?=$idstring?>/plots/<?=$currentChamberName?>-TW_CURR.png?d=<?=$RAND?>" /></a>
 
-	<a href="/STABILITY/<?=$idstring?>/plots/<?=$currentChamberName?>-TOT_CURR_CORR.png"><img width="245px" src="/STABILITY/<?=$idstring?>/plots/<?=$currentChamberName?>-TOT_CURR_CORR.png" /></a>
-	<a href="/STABILITY/<?=$idstring?>/plots/<?=$currentChamberName?>-BOT_CURR_CORR.png"><img width="245px" src="/STABILITY/<?=$idstring?>/plots/<?=$currentChamberName?>-BOT_CURR_CORR.png" /></a>
-	<a href="/STABILITY/<?=$idstring?>/plots/<?=$currentChamberName?>-TN_CURR_CORR.png"><img width="245px" src="/STABILITY/<?=$idstring?>/plots/<?=$currentChamberName?>-TN_CURR_CORR.png" /></a>
-	<a href="/STABILITY/<?=$idstring?>/plots/<?=$currentChamberName?>-TW_CURR_CORR.png"><img width="245px" src="/STABILITY/<?=$idstring?>/plots/<?=$currentChamberName?>-TW_CURR_CORR.png" /></a>
+	<a href="/STABILITY/<?=$idstring?>/plots/<?=$currentChamberName?>-TOT_CURR_DISTR.png?d=<?=$RAND?>"><img width="245px" src="/STABILITY/<?=$idstring?>/plots/<?=$currentChamberName?>-TOT_CURR_DISTR.png?d=<?=$RAND?>" /></a>
+	<a href="/STABILITY/<?=$idstring?>/plots/<?=$currentChamberName?>-BOT_CURR_DISTR.png?d=<?=$RAND?>"><img width="245px" src="/STABILITY/<?=$idstring?>/plots/<?=$currentChamberName?>-BOT_CURR_DISTR.png?d=<?=$RAND?>" /></a>
+	<a href="/STABILITY/<?=$idstring?>/plots/<?=$currentChamberName?>-TN_CURR_DISTR.png?d=<?=$RAND?>"><img width="245px" src="/STABILITY/<?=$idstring?>/plots/<?=$currentChamberName?>-TN_CURR_DISTR.png?d=<?=$RAND?>" /></a>
+	<a href="/STABILITY/<?=$idstring?>/plots/<?=$currentChamberName?>-TW_CURR_DISTR.png?d=<?=$RAND?>"><img width="245px" src="/STABILITY/<?=$idstring?>/plots/<?=$currentChamberName?>-TW_CURR_DISTR.png?d=<?=$RAND?>" /></a>
+
+        <a href="/STABILITY/<?=$idstring?>/plots/<?=$currentChamberName?>-TOT_QINT.png?d=<?=$RAND?>"><img width="245px" src="/STABILITY/<?=$idstring?>/plots/<?=$currentChamberName?>-TOT_QINT.png?d=<?=$RAND?>" /></a>
+	<a href="/STABILITY/<?=$idstring?>/plots/<?=$currentChamberName?>-BOT_QINT.png?d=<?=$RAND?>"><img width="245px" src="/STABILITY/<?=$idstring?>/plots/<?=$currentChamberName?>-BOT_QINT.png?d=<?=$RAND?>" /></a>
+	<a href="/STABILITY/<?=$idstring?>/plots/<?=$currentChamberName?>-TN_QINT.png?d=<?=$RAND?>"><img width="245px" src="/STABILITY/<?=$idstring?>/plots/<?=$currentChamberName?>-TN_QINT.png?d=<?=$RAND?>" /></a>
+	<a href="/STABILITY/<?=$idstring?>/plots/<?=$currentChamberName?>-TW_QINT.png?d=<?=$RAND?>"><img width="245px" src="/STABILITY/<?=$idstring?>/plots/<?=$currentChamberName?>-TW_QINT.png?d=<?=$RAND?>" /></a>
 	
 </div>

@@ -15,9 +15,9 @@ else if($_GET['type'] == 'daq') {
 }
 else {
     
-    if(isset($_GET['label'])) {
+    if(isset($_GET['daqtype'])) {
         
-        $sth1 = $DB['MAIN']->prepare("SELECT h.*, d.type AS scantype FROM hvscan h, hvscan_DAQ d WHERE h.label = '".$_GET['label']."' AND h.id = d.id ORDER BY id DESC");
+        $sth1 = $DB['MAIN']->prepare("SELECT h.*, d.type AS scantype FROM hvscan h, hvscan_DAQ d WHERE h.daqtype = '".$_GET['daqtype']."' AND h.id = d.id ORDER BY id DESC");
     }
     else die();
     
@@ -118,7 +118,7 @@ $(function() {
         <th class="oddrow" width="70px">Scan ID</th>
         <th class="oddrow filter-select" data-placeholder="Select scan type" width="150px">Scan type</th>
         <th class="oddrow" width="130px">Start time</th>
-        <th class="oddrow filter-select" data-placeholder="Select label" width="170px">Label</th>
+        <th class="oddrow filter-select" data-placeholder="Select daq type" width="170px">Daq type</th>
         <th class="oddrow filter-select" data-placeholder="Select status" width="60px">Status</th>
         <th class="oddrow" data-value="" width="30px">#HV</th>
 	</tr></thead>
@@ -144,9 +144,8 @@ $(function() {
 			
             
 
-			echo '<td>';
-			echo (array_key_exists($hvscan['label'], $scan_labels)) ? $scan_labels[$hvscan['label']] : $hvscan['label'];
-			echo '</td>';
+
+			echo '<td>'.$daq_types[$hvscan['daqtype']].'</td>';
 			
 			echo '<td>'.getFormattedStatus($hvscan['status']).'</td>';
 

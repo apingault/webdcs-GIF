@@ -205,3 +205,16 @@ function longevityDaily($pmon_id) {
 
 	handle($pmon_id, 0, "OK");	
 }
+
+function mysqlBackup($pmon_id) {
+	
+	date_default_timezone_set("Europe/Brussels");
+	
+	// Run at 3 AM (1:00)
+	if(intval(date('H')) == 1 && intval(date('i')) == 0) {
+
+		exec("source /home/webdcs/software/webdcs/scripts/mysqlBackup.sh > /dev/null 2>/dev/null &");
+	}
+
+	handle($pmon_id, 0, "OK");	
+}

@@ -5,7 +5,7 @@ function getProccessInfo($proc, &$running, &$PID = "", &$PS = "") {
 
 	$running = false;
 	
-	$process = shell_exec("ps -Al | grep ".$proc);
+	$process = shell_exec("ps -Al | grep -i ".$proc);
 	if($process != "") {
 		
 		$running = true;

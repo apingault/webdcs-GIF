@@ -163,7 +163,8 @@ function getHV($scanid, $HVPoint, $chamberid, $gapID = false) {
             
             if($TYPESCAN == "daq") {
                 // GET TRIGGERS
-                $a = $dbh->prepare("SELECT maxtriggers FROM hvscan_VOLTAGES WHERE scanid = $id AND HVPoint = ".($i+1)." LIMIT 1 ");
+                
+                $a = $DB['MAIN']->prepare("SELECT maxtriggers FROM hvscan_VOLTAGES WHERE scanid = $id AND HVPoint = ".($i+1)." LIMIT 1 ");
                 $a->execute();
                 $trig = $a->fetch();
                 

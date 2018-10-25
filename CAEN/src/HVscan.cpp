@@ -240,6 +240,9 @@ int main(int argC, char* argv[]) {
 
             
             sleep(3); // sleep in order for the DAQ to respond (i.e. change to RUNNING)
+            // while(RUN.compare("RUNNING") == 1) {
+            //     sleep(60);
+            // }
         }
 
         // Get initial timestamp
@@ -308,9 +311,17 @@ int main(int argC, char* argv[]) {
 
                 if(p < measure_time*60) run = 1;
                 else run = 0;
+                if (run == 0){
+                    const std::string msgCurRun = "Running current scan, time spent = " + to_string(p) + "run Variable = " + to_string(run);
+                   handleWarning(msgCurRun, 10);
+            }
             }
             else if(HVscan_DAQ) { // DAQ scan --> driven by DAQ program or driven by measure_time
                 
+                if (run == 0){
+                    const std::string msgDaqRun = "Running DAQ scan, time spent = " + to_string(p) + "run Variable = " + to_string(run);
+                    handleWarning(msgDaqRun, 10);
+                }
                 // Update the run file (depends on type of DAQ)
                 system(("python /home/webdcs/software/webdcs/CAEN/python/DAQ.py --id " + to_string(ID) + " --HV " + to_string(j) + " --refreshrun --maxtriggers " + to_string(maxtriggers) + " ").c_str()); // > /dev/null 2>&1 &
         
@@ -327,17 +338,27 @@ int main(int argC, char* argv[]) {
                 else {
                     //cout << "STOP " << endl;
                     const std::string msgRun = "Stopping the run, time spent = " + to_string(p);
-                    handleWarning(msgRun, 0);
+                    handleWarning(msgRun, 10);
                     run = 0;
                     system(("python /home/webdcs/software/webdcs/CAEN/python/DAQ.py --id " + to_string(ID) + " --HV " + to_string(j) + " --stop").c_str()); // > /dev/null 2>&1 &
 
                 }
-/*                
+                if (run == 0){
+                    const std::string msgDaqRunCheck = "Running DAQ scan - Checking status - time spent = " + to_string(p) + "run Variable = " + to_string(run);
+                    handleWarning(msgDaqRunCheck, 10);
+                }
+                /*
                 if(RUN.compare("RUNNING") == 0) run = 1;
                 else if(RUN.compare("DAQ_ERR") == 0) handleWarning("DAQ error received, stop the HVscan", 40);
                 else if(p < measure_time*60) run = 1;
                 else run = 0;
-                */
+            */
+                //cout << run << " " << RUN << endl;
+            }
+            if (run == 0)
+            {
+                const std::string msgCurRun = "Running current scan, time spent = " + to_string(p) + "run Variable = " + to_string(run);
+                handleWarning(msgCurRun, 10);
             }
         }
              	
@@ -393,7 +414,13 @@ int main(int argC, char* argv[]) {
         handleWarning("Keep latest voltages on detectors", 10);
     }
     else {
-        handleWarning("Set HV to " + to_string(lastHV) + " V", 10);
+        mysql_data_seek(res_det, 0); // reset SQL pointer
+        db->connect();
+        sql = "select value from settings where setting='standby_voltage'";
+        db->query(sql);
+        row = mysql_fetch_row(res_det);
+        int standbyHV = atoi(row[0]);
+        handleWarning("Set HV to " + to_string(standbyHV) + " V", 10);
     }
 
     mysql_data_seek(res_det, 0); // reset SQL pointer
@@ -427,12 +454,12 @@ int main(int argC, char* argv[]) {
     // Disconnect...
     db->disconnect();
     CAEN1->disconnect();
-    
+
     handleWarning("HVscan successfully ended!", 10);
     
     // Chmod all
     //system(("chmod -R 775 " + BASEDIR).c_str());
-
+    
     cout << "EXIT_SUCCESS" << endl;
     return 0;
 }
@@ -445,17 +472,17 @@ bool checkSystemStatus() {
     res = db->query(sql);
     row = mysql_fetch_row(res);
     if(atoi(row[0]) >= 20 ) {
-        
+
         handleWarning("Cannot connect to DIP server, abort scan", 30, __LINE__);
         return false;
     }
-    
+
     // check operational ranges
     sql = "SELECT status FROM PMON WHERE id = 5 LIMIT 1";
     res = db->query(sql);
     row = mysql_fetch_row(res);
     if(atoi(row[0]) >= 20 ) {
-        
+
         handleWarning("Operational ranges in ERROR state, abort scan", 30, __LINE__);
         return false;
     }
@@ -466,18 +493,18 @@ bool checkSystemStatus() {
 
 
 void initialize() {
-    
+
     char tmp[20];
     sprintf(tmp, "%06d", ID);
     IDSTRING = (string)tmp;
     BASEDIR = "/var/operation/HVSCAN/" + IDSTRING;
     RUN_FILE = "/var/operation/RUN/run";
     LOGFILE = BASEDIR + "/log.txt";
-    
+
     // Get the general scan information
     sql = "SELECT maxHVPoints, waiting_time, type, measure_time, measure_intval, lastHV FROM hvscan WHERE id = " + to_string(ID) + " LIMIT 1";
     res = db->query(sql);
-    row = mysql_fetch_row(res); 
+    row = mysql_fetch_row(res);
     if(mysql_num_rows(res) == 0) {
         //handleWarning(("HVscan ID " + to_string(ID) + " not found"), 40, __LINE__); --> dir not ready!
     }
@@ -487,68 +514,68 @@ void initialize() {
     measure_time = atoi(row[3]);
     measure_intval = atoi(row[4]);
     lastHV = atoi(row[5]);
-    
+
     // Make directory
     mkdir(BASEDIR.c_str(), 0775);
     system(("chmod 775 " + BASEDIR).c_str());
-    
+
     // Touch the log file
     //system(("touch " + LOGFILE + " && chmod 775 " + LOGFILE).c_str());
-	
+    
     // Get the specific scan information and prepare variables/directories/...
     if(typescan.compare("current") == 0) {
-        
+    
         HVscan_CURRENT = true;
         handleWarning(("Start HVScan CURRENT"), 10, __LINE__);
     }
     else if(typescan.compare("daq") == 0) {
-        
+	
         HVscan_DAQ = true;
         //sql = "SELECT type FROM hvscan_DAQ WHERE id = " + to_string(ID) + " LIMIT 1";
         //res = db->query(sql);
         //row = mysql_fetch_row(res);
         //runtype = (string)row[0];
         
-        
-        system(("python /home/webdcs/software/webdcs/CAEN/python/DAQ.py --id " + to_string(ID) + " --init  > /dev/null 2>&1 &").c_str());  
+
+        system(("python /home/webdcs/software/webdcs/CAEN/python/DAQ.py --id " + to_string(ID) + " --init  > /dev/null 2>&1 &").c_str());
         
         // Generate mapping
         /*
         handleWarning("Start TDC mapping file", 10, __LINE__);
-        system(("python /home/webdcs/software/webdcs/CAEN/python/generateDAQFiles.py --id " + to_string(ID) + " --mapping").c_str()); 
-        
+        system(("python /home/webdcs/software/webdcs/CAEN/python/generateDAQFiles.py --id " + to_string(ID) + " --mapping").c_str());
+
         // Generate dimensions
         handleWarning("Generate dimensions file", 10, __LINE__);
         system(("python /home/webdcs/software/webdcs/CAEN/python/generateDAQFiles.py --id " + to_string(ID) + " --dimensions").c_str());
 
-        
+
         handleWarning("Generate first daq.ini file", 10, __LINE__);
         system(("python /home/webdcs/software/webdcs/CAEN/python/generateDAQFiles.py --id " + to_string(ID) + " --daqini --HV 1 --maxtriggers 5000").c_str());
         */
 
-        // Start DAQ program  
+        // Start DAQ program
         handleWarning("Start HVScan DAQ", 10, __LINE__);
-        system(("python /home/webdcs/software/webdcs/CAEN/python/DAQ.py --id " + to_string(ID) + " --start").c_str());  
-        //system(("/home/daq/software/GIF_DAQ/bin/daq " + LOGFILE + " > /dev/null 2>&1 &").c_str());  
+        system(("python /home/webdcs/software/webdcs/CAEN/python/DAQ.py --id " + to_string(ID) + " --start").c_str());
+        //system(("/home/daq/software/GIF_DAQ/bin/daq " + LOGFILE + " > /dev/null 2>&1 &").c_str());
     }
-    
+
     setRUN("INIT"); // WAS START BEFORE, CHECK WITH TDC DAQ
 }
 
 void handleWarning(string msg, int loglevel, int line) {
-    
+
     /* Log level indicator:
      00: display to screen
      10: display to log file
      20: send email/sms to notification_addresses
      30: critical error, abort the program
      */
-    
+
     string entry, cmd;
-    
+
     // Parse message
     entry = parseLogEntry(msg, line);
-   
+
     // Execute log actions
     if(loglevel >= 0) {
         cout << msg << endl;
@@ -561,11 +588,11 @@ void handleWarning(string msg, int loglevel, int line) {
 
     }
     if(loglevel >= 30) {
-        
+
     }
     if(loglevel >= 40) {
-     
-        
+
+
         cout << "EXIT_FAIL" << endl;
         return;
     }

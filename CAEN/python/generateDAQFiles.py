@@ -30,43 +30,27 @@ parser.add_option("", "--daqini", dest = "daqini", action = 'store_true', help =
 
 if opts.id is None: parser.error('Please provide input ID')
 scanid = opts.id
- 
+
 now = time.strftime("%c")
-
-
-LOG = "/var/operation/HVSCAN/%06d/log.txt" % opts.id
-
-def log(msg):
-
-    n = strftime("%Y-%m-%d.%H:%M:%S", gmtime())
-    with open(LOG, "a") as myfile:
-        myfile.write("%s.[HVscan] %s\n" % (n, msg))
-
-
 
 db = MySQLdb.connect(host='localhost', user='root', passwd='UserlabGIF++', db='webdcs')
 cursor = db.cursor()
 
 
 # Get current DAQ
-# cursor.execute("SELECT value FROM settings WHERE setting = 'daqtype'")
-# res = cursor.fetchone()
-# DAQTYPE = res[0]
-DAQTYPE = 'default'
+cursor.execute("SELECT value FROM settings WHERE setting = 'daqtype'")
+res = cursor.fetchone()
+DAQTYPE = res[0]
 
-log("on en a gros")
-log("opts.daqini")
-log(opts)
 if opts.daqini:
 
     if DAQTYPE == 'default':
-        log("On est la")
         if opts.HV is None: parser.error('Please provide HV')
         if opts.maxtriggers is None: parser.error('Please provide maxtriggers')
 
         # get selected configuration
-        # cursor.execute("SELECT d.content FROM daqini d, settings s WHERE s.setting = 'daqini_default' AND s.value = d.id")
-        cursor.execute("SELECT d.content FROM daqini d, settings s WHERE s.setting = 'daqini' AND s.value = d.id")
+        cursor.execute("SELECT d.content FROM daqini d, settings s WHERE s.setting = 'daqini_default' AND s.value = d.id")
+        # cursor.execute("SELECT d.content FROM daqini d, settings s WHERE s.setting = 'daqini' AND s.value = d.id")
         res = cursor.fetchone()
 
         # Load the scan details
@@ -74,7 +58,7 @@ if opts.daqini:
         # res0 = cursor.fetchone()
         cursor.execute("SELECT type, trigger_mode FROM hvscan_DAQ WHERE id = %s" % scanid)
         res1 = cursor.fetchone()
-        
+
         # beam = "OFF" if int(res0[0]) == 0 else "ON"
         type = str(res1[0])
         if "random" in str(res1[1]): trigger = "random"
@@ -85,81 +69,75 @@ if opts.daqini:
         file = open("/var/operation/RUN/daqgifpp.ini", "w") 
 
         for s in res[0].splitlines():
-        
+
             line = s.strip()
-            
+        
             if "$scanid" in line: line = line.replace("$scanid", str(scanid))
             if "$HV" in line: line = line.replace("$HV", str(opts.HV))
             if "$maxtriggers" in line: line = line.replace("$maxtriggers", str(opts.maxtriggers))
             # if "$beam" in line: line = line.replace("$beam", beam)
             if "$runtype" in line: line = line.replace("$runtype", type)
             if "$trigger" in line: line = line.replace("$trigger", trigger)
-                
+
             file.write("%s\n" % line)
 
         file.close()
 
-
     if DAQTYPE == 'digitizer':
-
         if opts.HV is None: parser.error('Please provide HV')
         if opts.maxtriggers is None: parser.error('Please provide maxtriggers')
-
+        
         # get selected configuration
         cursor.execute("SELECT d.content FROM daqini d, settings s WHERE s.setting = 'daqini_digitizer' AND s.value = d.id")
         res = cursor.fetchone()
-
-
+            
         # open DAQ INI file
-        file = open("/var/operation/RUN/daq_digitizer.ini", "w") 
+        file = open("/var/operation/RUN/daq_digitizer.ini", "w")
 
         for s in res[0].splitlines():
-        
             line = s.strip()
-            
             if "$scanid" in line: line = line.replace("$scanid", str(scanid))
             if "$HV" in line: line = line.replace("$HV", str(opts.HV))
             if "$maxtriggers" in line: line = line.replace("$maxtriggers", str(opts.maxtriggers))
-            
             file.write("%s\n" % line)
-
         file.close()
+
+        # with open('data.json', 'w') as outfile:
+        #     json.dump(data, outfile)
+
 
         ### COPY TO SERVER
         # call("sshpass -p 'UserlabGIF++' scp \"/var/operation/RUN/daq_digitizer.ini\" webdcs@pccmsrpc-server01:webdcs/RUN/", shell=True)
 
 if opts.mapping:
-
     # Get all chambers in the current scan
     cursor.execute("SELECT c.* FROM hvscan_VOLTAGES v, gaps g, chambers c WHERE v.scanid = %d AND v.gapid = g.id AND g.chamberid = c.id GROUP BY c.id" % scanid)
     res = cursor.fetchall()
-    
+
     filename = "/var/operation/HVSCAN/%06d/Mapping.csv" % scanid
-    
+
     # Make mapping only if the file does not exist
     if os.path.isfile(filename): sys.exit()
-    
-    file = open(filename, "w") 
-    
+
+    file = open(filename, "w")
+
     for x in res: # loop over all the chambers
-    
+
         print "Add mapping for %s" % x[1]
         # array index according to DB
         mapping = str(x[9])
         for s in mapping.splitlines():
-            
             if "#" in s: continue
             else: file.write("%s\n" % s.strip().replace(":", "\t"))
-
     file.close()
-        
+
 
 if opts.dimensions:
 
     print "Generate dimensions.ini file"
-    
+
     filename = "/var/operation/HVSCAN/%06d/Dimensions.ini" % scanid
-    
+
     # Make file only if the file does not exist
     # Overwrite the Dimensions.ini file!
     #if os.path.isfile(filename): sys.exit()
@@ -171,8 +149,6 @@ if opts.dimensions:
     # Get all unique trolleys and their slots
     # If no trolleys, consider only slots
     trolleys = {} # store trolleys, for each trolley an array of slots is created
-    
-    
     entries = {}
 
     for x in res: # loop over all the chambers
@@ -221,7 +197,7 @@ if opts.dimensions:
 
 
 
-    file = open(filename, "w") 
+    file = open(filename, "w")
     file.write("# DAQ Dimensions.ini\n")
     file.write("# Generated on %s\n" % now)
     file.write("# SCAN ID %d\n" % scanid)
@@ -239,5 +215,5 @@ if opts.dimensions:
         file.write(entries[pos])
 
     file.close()
-    
+
     print "Done"

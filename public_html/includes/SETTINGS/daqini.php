@@ -7,12 +7,14 @@ if(isset($_POST['save'])) {
 	$name = strtolower(filter_input(INPUT_POST, 'name'));
 	$content = filter_input(INPUT_POST, 'content');
 	$id = filter_input(INPUT_POST, 'config');
+    $daqtype = filter_input(INPUT_POST, 'daqtype'); 
 	
 	if($id == "new") {
 		
-		$sth2 = $dbh->prepare("INSERT INTO daqini (id, name, content) VALUES ('', :name, :content) ");
+        $sth2 = $dbh->prepare("INSERT INTO daqini (id, name, daqtype, content) VALUES ('', :name, :daqtype, :content) ");
         $sth2->bindParam(':name', $name);
         $sth2->bindParam(':content', $content);
+        $sth2->bindParam(':daqtype', $daqtype);
 		$sth2->execute();
 				
 		msg("Configuration ".$name." added", "pass");
@@ -21,9 +23,10 @@ if(isset($_POST['save'])) {
 	else {
 		
 		
-		$sth2 = $dbh->prepare("UPDATE daqini SET name = :name, content = :content WHERE id = ".$id);
+        $sth2 = $dbh->prepare("UPDATE daqini SET name = :name, content = :content, daqtype = :daqtype WHERE id = ".$id);
         $sth2->bindParam(':name', $name);
         $sth2->bindParam(':content', $content);
+        $sth2->bindParam(':daqtype', $daqtype);
 		$sth2->execute();
 		
 		msg("Configuration ".$name." updated", "pass");
@@ -36,17 +39,22 @@ if($id == "new") {
 	
 	$content = "";
 	$name = "";
+    $daqtype = "default";
 }
 else {
 	
 	if(!is_numeric($id)) $id = settings("daqini");
+
 	
-	$q = $dbh->prepare("SELECT * FROM daqini WHERE id = ".$id);
+    $q = $dbh->prepare("SELECT * FROM daqini WHERE id = ".$id);
 	$q->execute();
 	$f = $q->fetch();
 	$content = $f['content'];
 	$name = $f['name'];
+    $daqtype = $f['daqtype'];
 }
+
+
 
 $q = $dbh->prepare("SELECT * FROM daqini ORDER BY id DESC");
 $q->execute();
@@ -85,6 +93,16 @@ $(function(){
 	<br /><br />
 	
 	Name: <input type="text" name="name" value="<?=$name?>" />
+    <br /><br />
+    DAQ Type: <select name="daqtype">
+    <?php
+    foreach($daq_types as $t => $val) {
+        if($t == $daqtype) $sel = 'selected="selected"';
+        else $sel = "";
+        echo '<option '.$sel.' value="'.$t.'">'.$val.'</option>';
+    }
+    ?>
+    </select>
 	
 	<br /><br />
 	

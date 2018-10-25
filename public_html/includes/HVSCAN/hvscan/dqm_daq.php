@@ -6,22 +6,22 @@ $daqtype = $sth1->fetch();
 
 
 if($daqtype[0] == "lyondaq") {
-    
-    
+
+
     $dir = sprintf("/var/operation/HVSCAN/%06d/HV%d/DAQ/", $id, $HV);
     $files = scandir($dir);
-    
+
     $wwwdir = sprintf("/HVSCAN/%06d/HV%d/DAQ/", $id, $HV);
-    
+
 
     foreach($files as $f) {
-        
+
         if(!(strpos($f, ".png") > -1)) continue;
-        
+
         //echo $f."<br >";
         echo '<img src="'.$wwwdir.$f.'" ?>';
     }
-    
+
 
     die();
 }
@@ -64,18 +64,18 @@ $plots = array("Hit_Profile", "Hit_Multiplicity", "Strip_Mean_Noise", "Time_Prof
 $width = 100/count($plots);
 
 foreach($chambers as $chamber) {
-    
+
     for($i=0; $i < $chamber['partitions']; $i++) {
-        
+
         echo '<h3>'.$chamber['name'].' - partition '.$partitions[$i].'</h3>';
-        
+
         foreach($plots as $plot) {
-            
+
             echo '<a href="/HVSCAN/'.$idstring.'/HV'.$HV.'/DAQ/'.$plot.'_'.$chamber['name'].'_'.$partitions[$i].'.png"><img width="'.$width.'%" src="/HVSCAN/'.$idstring.'/HV'.$HV.'/DAQ/'.$plot.'_'.$chamber['name'].'_'.$partitions[$i].'.png" /></a>';
         }
     }
-    
-   
+
+
 }
 echo '</div>';
 ?>

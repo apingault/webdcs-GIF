@@ -34,7 +34,7 @@ elseif($hvscan['type'] == 'daq') {
 
 // Get specific scan information
 if($TYPESCAN == "daq") {
-   
+
     $sth1 = $DB['MAIN']->prepare("SELECT * FROM hvscan_DAQ WHERE id = $id");
     $sth1->execute();
     $hvscan_spec = $sth1->fetch();
@@ -77,9 +77,9 @@ for($i = 1; $i <= $hvscan['maxHVPoints']; $i++) {
     });
 </script>
 
-    
+
 <h3>HVscan - ID <?php printf("%06d", $id); ?></h3>
-       
+
 <ul class="tab" style="width: 100%">
     <li><a href="index.php?q=hvscan&p=hvscan&id=<?=$id?>&r=overview">Scan overview</a></li>
     <li><a href="index.php?q=hvscan&p=hvscan&id=<?=$id?>&r=voltages">Voltages</a></li>
@@ -93,9 +93,9 @@ for($i = 1; $i <= $hvscan['maxHVPoints']; $i++) {
     <li style="float: right;"><a href="index.php?q=hvscan&p=hvscan&id=<?=$id?>&r=dqm_log&HV=<?=$HV?>">DQM Log</a></li>
 	<li style="float: right;"><a href="index.php?q=hvscan&p=hvscan&id=<?=$id?>&r=dqm_caen&HV=<?=$HV?>">DQM CAEN</a></li>
 </ul>
-       
+
 <br />
-    
+
 <?php
 if(isset($_GET['r'])) require_once 'hvscan/'.$_GET['r'].'.php';
 else require_once 'hvscan/overview.php';

@@ -10,21 +10,31 @@ $op = $q->fetchAll();
 
 $DCSPID = shell_exec("ps -Al | grep HVscan | awk '{print $4}'"); // Get the PID from the running process
 $DAQPID = shell_exec("ps -Al | grep daq | awk '{print $4}'");
+$DIGIDAQPID = shell_exec("pgrep -a python | grep 'digidaq.py' | awk '{print $1}'");
+$DIGIDAQPS = exec("pgrep -a python | grep 'digidaq.py'");
+$WDPID = shell_exec("ps -Al | grep wavedump | awk '{print $4}'");
 $DQMPID = shell_exec("pgrep -a python | grep 'DQM.py' | awk '{print $1}'");
 $DQMPS = exec("pgrep -a python | grep 'DQM.py'");
 
 if(isset($_POST['killDAQ'])) {
-    
+
     $tmp = explode('\n', $DAQPID);
     foreach($tmp as $p) {
+		shell_exec("kill -9 $p");
+	}
+    $tmp = explode('\n', $DIGIDAQPID);
+    foreach($tmp as $p) {
+		shell_exec("kill -9 $p");
+	}
+    $tmp = explode('\n', $WDPID);
+    foreach($tmp as $p) {
         shell_exec("kill -9 $p");
-	//echo "kill -9 $p";
     }
     header("Refresh:0");
 }
 
 if(isset($_POST['killDCS'])) {
-    
+
     $tmp = explode('\n', $DCSPID);
     foreach($tmp as $p) {
         shell_exec("kill -9 $p");
@@ -32,11 +42,8 @@ if(isset($_POST['killDCS'])) {
     header("Refresh:0");
 }
 
-// LYON DAQ STUFF
-$ldaq = exec("/home/webdcs/test.py");
-$ldaq = explode("_", $ldaq);
-
 getProccessInfo("daq", $running_DAQ, $PID_DAQ, $PS_DAQ);
+getProccessInfo("wavedump", $running_DAQ, $PID_WD, $PS_WD);
 getProccessInfo("HVscan", $running_DCS, $PID_DCS, $PS_DCS);
 getProccessInfo("Longevity", $running_DAQ, $PID_STA, $PS_STA);
 
@@ -45,7 +52,7 @@ $run_stability = file_get_contents("/var/operation/RUN_STABILITY/run");
 
 
 if(isset($_POST['resetRUNDAQ'])) {
-	
+
 	if($PID_DAQ == "n/a") {
 		file_put_contents("/var/operation/RUN/run", "STOP");
 		header("Refresh:0");
@@ -68,67 +75,72 @@ if(isset($_POST['resetRUNSTABILITY'])) {
 <br /><br />
 
 <table class="table">
-	
+
 	<thead>
 		<tr>
 			<td width="150px"></td>
 			<td width="150px">DAQ process</td>
+            <td width="150px">DigiDAQ process</td>
+            <td width="150px">Wavedump process</td>
 			<td width="150px">DCS process</td>
 			<td width="150px">Stability process</td>
             <td width="150px">DQM process</td>
-            <td width="150px">LYON DAQ</td>
 		</tr>
 	</thead>
-	
+
 	<tbody>
-		
+
 		<tr>
 			<td>Status:</td>
 			<td><b><?php echo ($PID_DAQ == "n/a") ? '<font>NOT RUNNING</font>' : '<font style="color: green">RUNNING</font>' ?></b></td>
+			<td><b><?php echo (empty($DIGIDAQPID)) ? '<font>NOT RUNNING</font>' : '<font style="color: green">RUNNING</font>' ?></b></td>
+			<td><b><?php echo ($PID_WD == "n/a") ? '<font>NOT RUNNING</font>' : '<font style="color: green">RUNNING</font>' ?></b></td>
 			<td><b><?php echo ($PID_DCS == "n/a") ? '<font>NOT RUNNING</font>' : '<font style="color: green">RUNNING</font>' ?></b></td>
 			<td><b><?php echo ($PID_STA == "n/a") ? '<font>NOT RUNNING</font>' : '<font style="color: green">RUNNING</font>' ?></b></td>
 			<td><b><?php echo (empty($DQMPID)) ? '<font>NOT RUNNING</font>' : '<font style="color: green">RUNNING</font>' ?></b></td>
-            <td><b><abbr title="0=OK, 1=DAQ CONNECTION ERROR, 2=DAQ 404">Connection:</abbr> <?php echo $ldaq[3]; ?></b></td>
 		</tr>
-		
+
 		<tr>
 			<td>PIDs:</td>
 			<td><?php echo $PID_DAQ; ?></td>
+			<td><?php echo $DIGIDAQPID; ?></td>
+			<td><?php echo $PID_WD; ?></td>
 			<td><?php echo $PID_DCS; ?></td>
 			<td><?php echo $PID_STA; ?></td>
             <td><?php echo $DQMPID; ?></td>
-            <td>Event: <?php echo $ldaq[0]; ?></td>
 		</tr>
-		
+
 		<tr>
 			<td>Dump ps:</td>
 			<td><?php echo $PS_DAQ; ?></td>
+			<td><?php echo $DIGIDAQPS; ?></td>
+			<td><?php echo $PS_WD; ?></td>
 			<td><?php echo $PS_DCS; ?></td>
 			<td><?php echo $PS_STA ?></td>
             <td><?php echo $DQMPS; ?></td>
-            <td>Run: <?php echo $ldaq[1]; ?></td>
 		</tr>
-		
+
 		<tr>
 			<td>Run file:</td>
 			<td><?php echo $run_hvscan; ?></td>
 			<td><?php echo $run_hvscan; ?></td>
+			<td><?php echo $run_hvscan; ?></td>
+			<td><?php echo $run_hvscan; ?></td>
 			<td><?php echo $run_stability; ?></td>
             <td>n/a</td>
-            <td>n/a</td>
 		</tr>
-                
-                
+
+
 
 </table>
 <br />
-<?php 
+<?php
 if(getCurrentRole() != 0) {
 ?>
 <form style="float: left;" action="" method="POST" onsubmit="return confirm('Do you really want to kill the process?')">
-	<input type="submit" name="killDAQ" value="Kill DAQ processes" /> <input type="submit" name="killDCS" value="Kill DCS processes" /> 
+	<input type="submit" name="killDAQ" value="Kill DAQ processes" /> <input type="submit" name="killDCS" value="Kill DCS processes" />
 </form>
- 
+
 <form action="" method="POST">
 &nbsp;<input type="submit" name="resetRUNDAQ" value="Reset HVscan runfile" /> <input type="submit" name="resetRUNSTABILITY" value="Reset stability runfile" />
 </form>
@@ -143,7 +155,7 @@ if(getCurrentRole() != 0) {
 <br /><br />
 
 <table class="table">
-        
+
 	<thead><tr>
 		<td width="20px"></td>
         <td width="180px">Name</td>
@@ -155,13 +167,13 @@ if(getCurrentRole() != 0) {
 		<td width="120px">Current value</td>
 		<td width="80px">Status</td>
 	</tr></thead>
-        
+
 	<tbody>
-    
+
     <?php
 
     foreach($op as $o) {
-		
+
         getValue($o["id_name"], $value, $name, $unit);
         $enabled = ($o['enabled'] == 1) ? $ICON_TICK : $ICON_CROSS;
 
@@ -180,9 +192,9 @@ if(getCurrentRole() != 0) {
 	echo "</td>";
         echo "</tr>";
     }
-    
+
     ?>
-</tbody>   
+</tbody>
 </table>
 
 
@@ -192,9 +204,9 @@ if(getCurrentRole() != 0) {
 
 <br /><br />
 
-    
+
 <table class="table">
-        
+
 	<thead><tr>
 		<td width="20px"></td>
         <td width="190px">Monitor name</td>
@@ -203,9 +215,9 @@ if(getCurrentRole() != 0) {
         <td width="250px">Arguments</td>
         <td width="80px">Status</td>
 	</tr></thead>
-        
+
 	<tbody>
-    
+
     <?php
     foreach($notifications as $i => $notification) {
 
@@ -222,8 +234,8 @@ if(getCurrentRole() != 0) {
 	echo "</td>";
         echo "</tr>";
     }
-    
+
     ?>
-</tbody>   
+</tbody>
 </table>
 
